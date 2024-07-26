@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="placeholder_150" model="ir.attachment">
+        <field name="public" eval="True"/>
+        <field name="name">placeholder-150.jpg</field>
+        <field name="res_model">ir.ui.view</field>
+        <field name="type">url</field>
+        <field name="url">/yo_trombinoscope_member/static/src/img/placeholder-150.png</field>
+    </record>
+
+
+</odoo>

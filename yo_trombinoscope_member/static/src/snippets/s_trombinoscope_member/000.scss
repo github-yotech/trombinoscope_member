@@ -1,0 +1,22 @@
+.trombinoscope-card {
+    transition: transform 0.2s;
+    max-width: 15rem;
+}
+
+.trombinoscope-card:hover {
+    transform: scale(1.05);
+}
+
+.trombinoscope-card-link {
+    color: black;
+    text-decoration: none;
+}
+
+.trombinoscope-card-link:hover {
+    color: black;
+    text-decoration: none;
+}
+
+.trombinoscope-card-text>p {
+    margin-bottom: 0;
+}

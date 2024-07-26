@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="s_trombinoscope_member" name="Trombinoscope Member">
+
+        <section class="trombinoscope-member s_features_grid" data-trombinoscope-size="3" data-trombinoscope="" data-trombinoscope-detail="">
+            <div class="container">
+                <div class="s_nb_grid s_nb_column_fixed">
+                    <div class="row trombinoscope-row gx-1 mb-2">
+                        <div class="col">
+                            <div class="card trombinoscope-card">
+                                <a href="#" class="trombinoscope-card-link">
+                                    <img src="/yo_trombinoscope_member/static/src/img/placeholder-150.png" class="card-img-top img-thumbnail" alt="..."/>
+                                    <div class="card-body trombinoscope-card-text">
+                                        <h5 class="card-title placeholder-glow">
+                                            <span class="placeholder col-6"></span>
+                                        </h5>
+                                        <p class="card-text placeholder-glow">
+                                            <span class="placeholder col-4"></span>
+                                            <span class="placeholder col-8"></span>
+                                            <span class="placeholder col-7"></span>
+                                            <span class="placeholder col-7"></span>
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="card trombinoscope-card">
+                                <a href="#" class="trombinoscope-card-link">
+                                    <img src="/yo_trombinoscope_member/static/src/img/placeholder-150.png" class="card-img-top img-thumbnail" alt="..."/>
+                                    <div class="card-body trombinoscope-card-text">
+                                        <h5 class="card-title placeholder-glow">
+                                            <span class="placeholder col-6"></span>
+                                        </h5>
+                                        <p class="card-text placeholder-glow">
+                                            <span class="placeholder col-4"></span>
+                                            <span class="placeholder col-8"></span>
+                                            <span class="placeholder col-7"></span>
+                                            <span class="placeholder col-7"></span>
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="card trombinoscope-card">
+                                <a href="#" class="trombinoscope-card-link">
+                                    <img src="/yo_trombinoscope_member/static/src/img/placeholder-150.png" class="card-img-top img-thumbnail" alt="..."/>
+                                    <div class="card-body trombinoscope-card-text">
+                                        <h5 class="card-title placeholder-glow">
+                                            <span class="placeholder col-6"></span>
+                                        </h5>
+                                        <p class="card-text placeholder-glow">
+                                            <span class="placeholder col-4"></span>
+                                            <span class="placeholder col-8"></span>
+                                            <span class="placeholder col-7"></span>
+                                            <span class="placeholder col-7"></span>
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="card trombinoscope-card">
+                                <a href="#" class="trombinoscope-card-link">
+                                    <img src="/yo_trombinoscope_member/static/src/img/placeholder-150.png" class="card-img-top img-thumbnail" alt="..."/>
+                                    <div class="card-body trombinoscope-card-text">
+                                        <h5 class="card-title placeholder-glow">
+                                            <span class="placeholder col-6"></span>
+                                        </h5>
+                                        <p class="card-text placeholder-glow">
+                                            <span class="placeholder col-4"></span>
+                                            <span class="placeholder col-8"></span>
+                                            <span class="placeholder col-7"></span>
+                                            <span class="placeholder col-7"></span>
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="card trombinoscope-card">
+                                <a href="#" class="trombinoscope-card-link">
+                                    <img src="/yo_trombinoscope_member/static/src/img/placeholder-150.png" class="card-img-top img-thumbnail" alt="..."/>
+                                    <div class="card-body trombinoscope-card-text">
+                                        <h5 class="card-title placeholder-glow">
+                                            <span class="placeholder col-6"></span>
+                                        </h5>
+                                        <p class="card-text placeholder-glow">
+                                            <span class="placeholder col-4"></span>
+                                            <span class="placeholder col-8"></span>
+                                            <span class="placeholder col-7"></span>
+                                            <span class="placeholder col-7"></span>
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row trombinoscope-row gx-1 mb-2">
+                        <div class="col">
+                            <div class="card trombinoscope-card">
+                                <a href="#" class="trombinoscope-card-link">
+                                    <img src="/yo_trombinoscope_member/static/src/img/placeholder-150.png" class="card-img-top img-thumbnail" alt="..."/>
+                                    <div class="card-body trombinoscope-card-text">
+                                        <h5 class="card-title placeholder-glow">
+                                            <span class="placeholder col-6"></span>
+                                        </h5>
+                                        <p class="card-text placeholder-glow">
+                                            <span class="placeholder col-4"></span>
+                                            <span class="placeholder col-8"></span>
+                                            <span class="placeholder col-7"></span>
+                                            <span class="placeholder col-7"></span>
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="card trombinoscope-card">
+                                <a href="#" class="trombinoscope-card-link">
+                                    <img src="/yo_trombinoscope_member/static/src/img/placeholder-150.png" class="card-img-top img-thumbnail" alt="..."/>
+                                    <div class="card-body trombinoscope-card-text">
+                                        <h5 class="card-title placeholder-glow">
+                                            <span class="placeholder col-6"></span>
+                                        </h5>
+                                        <p class="card-text placeholder-glow">
+                                            <span class="placeholder col-4"></span>
+                                            <span class="placeholder col-8"></span>
+                                            <span class="placeholder col-7"></span>
+                                            <span class="placeholder col-7"></span>
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="card trombinoscope-card">
+                                <a href="#" class="trombinoscope-card-link">
+                                    <img src="/yo_trombinoscope_member/static/src/img/placeholder-150.png" class="card-img-top img-thumbnail" alt="..."/>
+                                    <div class="card-body trombinoscope-card-text">
+                                        <h5 class="card-title placeholder-glow">
+                                            <span class="placeholder col-6"></span>
+                                        </h5>
+                                        <p class="card-text placeholder-glow">
+                                            <span class="placeholder col-4"></span>
+                                            <span class="placeholder col-8"></span>
+                                            <span class="placeholder col-7"></span>
+                                            <span class="placeholder col-7"></span>
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="card trombinoscope-card">
+                                <a href="#" class="trombinoscope-card-link">
+                                    <img src="/yo_trombinoscope_member/static/src/img/placeholder-150.png" class="card-img-top img-thumbnail" alt="..."/>
+                                    <div class="card-body trombinoscope-card-text">
+                                        <h5 class="card-title placeholder-glow">
+                                            <span class="placeholder col-6"></span>
+                                        </h5>
+                                        <p class="card-text placeholder-glow">
+                                            <span class="placeholder col-4"></span>
+                                            <span class="placeholder col-8"></span>
+                                            <span class="placeholder col-7"></span>
+                                            <span class="placeholder col-7"></span>
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="card trombinoscope-card">
+                                <a href="#" class="trombinoscope-card-link">
+                                    <img src="/yo_trombinoscope_member/static/src/img/placeholder-150.png" class="card-img-top img-thumbnail" alt="..."/>
+                                    <div class="card-body trombinoscope-card-text">
+                                        <h5 class="card-title placeholder-glow">
+                                            <span class="placeholder col-6"></span>
+                                        </h5>
+                                        <p class="card-text placeholder-glow">
+                                            <span class="placeholder col-4"></span>
+                                            <span class="placeholder col-8"></span>
+                                            <span class="placeholder col-7"></span>
+                                            <span class="placeholder col-7"></span>
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="s_trombinoscope_options" inherit_id="website.snippet_options">
+        <xpath expr="//div[@data-js='Box']" position="before">
+            <div data-js="TrombinoscopeMemberOptions" data-selector=".trombinoscope-member">
+                <we-select string="Trombinoscope" class="trombinoscope-selection" data-reload="/">
+                    <we-button data-select-trombinoscope="" data-select-trombinoscope-name="None" data-reload="/" class="trombinoscope-selection">None</we-button>
+                </we-select>
+                <we-range string="Size" data-min="2" data-step="1" data-max="6" data-set-trombinoscope-size="" data-display-range-value="true"/>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[@data-js='layout_column']" position="attributes">
+            <attribute name="data-exclude" add=".trombinoscope-member" separator=","/>
+        </xpath>
+
+        <xpath expr="//div[@data-js='ReplaceMedia']" position="attributes">
+            <attribute name="data-exclude" add=".trombinoscope-image" separator=","/>
+        </xpath>
+    </template>
+
+    <!-- Register asset so it available for public -->
+    <record id="yo_trombinoscope_member.s_trombinoscope_member_000_js" model="ir.asset">
+        <field name="name">Trombinoscope Member 000 JS</field>
+        <field name="bundle">web.assets_frontend</field>
+        <field name="path">yo_trombinoscope_member/static/src/snippets/s_trombinoscope_member/000.js</field>
+    </record>
+
+    <record id="yo_trombinoscope_member.s_trombinoscope_member_000_scss" model="ir.asset">
+        <field name="name">Trombinoscope Member 000 SCSS</field>
+        <field name="bundle">web.assets_frontend</field>
+        <field name="path">yo_trombinoscope_member/static/src/snippets/s_trombinoscope_member/000.scss</field>
+    </record>
+
+
+</odoo>
