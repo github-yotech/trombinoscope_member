@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="external_snippets" inherit_id="website.snippets">
+        <xpath expr="//div[@id='snippet_effect']//t[@t-snippet][last()]" position="after">
+            <t t-snippet="yo_trombinoscope_member.s_trombinoscope_member" string="Trombinoscope Member" t-thumbnail="/yo_trombinoscope_member/static/src/img/snippets/s_images_wall.svg"/>
+        </xpath>
+    </template>
+</odoo>
