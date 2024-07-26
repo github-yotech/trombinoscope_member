@@ -53,18 +53,19 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         data.forEach(row => {
             res += `<div class="row trombinoscope-row gx-1 mb-2 justify-content-center">`;
             row.forEach(col => {
+                const image = col.image
+                delete col.image
+                const raw_detail = col
+                const detail = JSON.stringify(col)
                 res += `
                     <div class="col-auto">
-                        <div class="card trombinoscope-card">
-                            <a href="${col.url}" class="trombinoscope-card-link">
-                                <img src="data:image/png;base64,${col.image}" class="card-img-top img-thumbnail" alt="..."/>
+                        <div class="card trombinoscope-card" data-detail='${detail}'>
+                            <a href="#" class="trombinoscope-card-link">
+                                <img src="data:image/png;base64,${image}" class="card-img-top img-thumbnail" alt="..."/>
                                 <div class="card-body trombinoscope-card-text">
                                     <h5 class="card-title">
                                         ${col.name}
                                     </h5>
-                                    <p class="card-text mb-0">${col.title}</p>
-                                    <p class="card-text mb-0">${col.company}</p>
-                                    <p class="card-text mb-0">${col.activity}</p>
                                 </div>
                             </a>
                         </div>
@@ -77,6 +78,15 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
 
 
         gridElement.html(res);
+
+        // register onclick card
+        const cardElement = gridElement.find('.trombinoscope-card')
+        cardElement.on('click .trombinoscope-card', ev => {
+            const card = $(ev.target).closest('.trombinoscope-card')
+            const detail = card.data('detail')
+            const image = card.find('.card-img-top').attr('src')
+            this.showModal(image, detail)
+        })
     },
     /**
      * @private
@@ -90,7 +100,7 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         return responses;
     },
     async loadImage(previewMode) {
-        if (previewMode){
+        if (previewMode) {
             return;
         }
 
@@ -101,6 +111,47 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         let data = await this._fetch();
         this.renderImgGrid(data);
     },
+    showModal(image, data) {
+        let modal = this.$target.find('.trombinoscope-modal');
+
+        // Set Modal Title
+        modal.find('.modal-title').html((data['name'] || ''))
+
+
+        // Set Modal Body
+        let detailElement = '';
+        for(const [key, value] of Object.entries(data)){
+            const val = value != '' && value != null ? value : '-'
+            detailElement += `
+            <tr>
+                <th scope="row">${(key.toUpperCase())}</th>
+                <td>: ${val}</td>
+            </tr>
+            `
+        }
+
+        let bodyElement = `
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                <image class="img-fluid" src="${image}"/>
+                </div>
+                <div class="col">
+                <table class="table table-borderless table-responsive table-sm align-top">
+                    <tbody>
+                        ${detailElement}
+                    </tbody>
+                </table>
+                </div>
+                
+            </div>
+        </div>`
+
+        modal.find('.modal-body').html(bodyElement)
+
+
+        modal.modal('show');
+    }
 
 });
 

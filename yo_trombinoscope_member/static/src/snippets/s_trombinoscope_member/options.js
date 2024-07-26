@@ -7,10 +7,17 @@ const TrombinoscopeMemberOptions = options.Class.extend({
         this._super(...arguments);
     },
     start: function () {
-        console.log("Load Trombinoscope Options")
         this._loadOptions();
         this._loadSize();
         this._loadPreview();
+    },
+    async onBuilt(options) {
+        await this._super(...arguments);
+        this._hideModal();
+    },
+    _hideModal() {
+        let modal = this.$target.find('.trombinoscope-modal');
+        modal.hide()
     },
     _loadPreview() {
         const size = this.$target.attr('data-trombinoscope-size') || '3';
