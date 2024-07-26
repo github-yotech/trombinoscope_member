@@ -2,7 +2,7 @@ from odoo import http
 
 class TrombinoscopeMember(http.Controller):
 
-    @http.route("/trombinoscope/list", auth="public", type="json", methods=['GET', 'POST'])
+    @http.route("/trombinoscope/list", auth="public", type="json")
     def get_trombinoscope(self, **kwargs):
         """ Get list of trombinoscope
         """
@@ -10,33 +10,23 @@ class TrombinoscopeMember(http.Controller):
             .search_read([('is_active', '=', True)], ['id', 'name'], order='name asc')
         return tromb
 
-    @http.route("/trombinoscope/list/member", auth="public", type="json", methods=['GET', 'POST'])
-    def get_member(self, **kwargs):
+    @http.route("/trombinoscope/list/member", auth="public", type="json")
+    def get_member(self, trombinoscope, **kwargs):
         """ Get list of marked partner
             Partner is not availble to public
             but for this case, we want to expose it
             for a momment.
+
+            :param trombinosope_id(int): id of
         """
         # Limit request
         limit = kwargs.get('limit') or 4
         limit = limit if limit <= 36 else 0
 
         # Trombinoscope
-        tromb = kwargs.get('trombinoscope_id')
+        trombi = http.request.env['trombinoscope.list'].sudo().browse(trombinoscope)
+        if not trombi or not trombi.is_active:
+            return []
 
-        # construct domain
-        domain = [('is_active', '=', True)]
-        if tromb:
-            domain += [('id', '=', tromb)]
-
-        members = http.request.env['trombinoscope.list'].sudo().search(domain)
-        members = members.member_ids.partner_id.mapped(lambda x: {
-            "name": x.name,
-            "image": x.image_256,
-            "url": f'/member/{x.id}',
-            "title": x.title.name or 'Title',
-            "company": x.company_id.name or 'Company',
-            "activity": "Activity of person"
-        })
-
+        members = trombi.get_members()
         return members
