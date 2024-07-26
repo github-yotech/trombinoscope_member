@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="trombinoscope_list_tree" model="ir.ui.view">
+        <field name="name">trombinoscope_list.tree</field>
+        <field name="model">trombinoscope.list</field>
+        <field name="arch" type="xml">
+            <tree string="Trombinoscope">
+                <field name="name"/>
+                <field name="is_active" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="trombinoscope_list_form" model="ir.ui.view">
+        <field name="name">trombinoscope_list.form</field>
+        <field name="model">trombinoscope.list</field>
+        <field name="arch" type="xml">
+            <form string="Trombinoscope">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="is_active" />
+                        <field name="member_ids">
+                            <tree editable="bottom" create="1" delete="1" multi_edit="1">
+                                <field name="sequence" widget="handle" />
+                                <field name="partner_id"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_trombinoscope_list" model="ir.actions.act_window">
+        <field name="name">Trombinoscope</field>
+        <field name="res_model">trombinoscope.list</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <menuitem
+        id="trombinoscope_list_menu"
+        name="Trombinoscope"
+        action="action_trombinoscope_list"
+        parent="website.menu_website_global_configuration"
+        sequence="70"/>
+
+</odoo>

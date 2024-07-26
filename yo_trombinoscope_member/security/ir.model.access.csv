@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_trombinoscope_list_user,trombinoscope_list_access,model_trombinoscope_list,base.group_user,1,1,1,1
+access_trombinoscope_member_user,trombinoscope_member_access,model_trombinoscope_list_member,base.group_user,1,1,1,1
