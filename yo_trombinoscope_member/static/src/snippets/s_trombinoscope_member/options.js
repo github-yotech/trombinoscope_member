@@ -4,6 +4,7 @@ import options from "@web_editor/js/editor/snippets.options";
 
 const TrombinoscopeMemberOptions = options.Class.extend({
     init: function () {
+        console.debug("Load Trombinoscope Options")
         this._super(...arguments);
     },
     start: function () {

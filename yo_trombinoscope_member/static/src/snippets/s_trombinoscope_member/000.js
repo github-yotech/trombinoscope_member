@@ -5,6 +5,7 @@ import publicWidget from "@web/legacy/js/public/public_widget";
 const TrombinoscopeMember = publicWidget.Widget.extend({
     selector: '.trombinoscope-member',
     init: function () {
+        console.debug("Load Trombinoscope")
         this._super.apply(this, arguments);
         this.rpc = this.bindService("rpc");
     },
