@@ -2,7 +2,7 @@
 <odoo>
     <template id="s_trombinoscope_member" name="Trombinoscope Member">
 
-        <section class="trombinoscope-member s_features_grid" data-trombinoscope-size="3" data-trombinoscope="" data-trombinoscope-detail="">
+        <section class="trombinoscope-member s_features_grid" data-trombinoscope-row="3" data-trombinoscope-col="3" data-trombinoscope="" data-trombinoscope-detail="">
             <div class="trombinoscope-modal modal modal-dialog-centered" tabindex="-1" id="trombinoscope-modal">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -222,7 +222,10 @@
                 <we-select string="Trombinoscope" class="trombinoscope-selection" data-reload="/">
                     <we-button data-select-trombinoscope="" data-select-trombinoscope-name="None" data-reload="/" class="trombinoscope-selection">None</we-button>
                 </we-select>
-                <we-range string="Size" data-min="2" data-step="1" data-max="6" data-set-trombinoscope-size="" data-display-range-value="true"/>
+                <div>
+                    <we-range class="o_we_sublevel_1 trombi-option-row" string="Row" data-min="2" data-step="1" data-max="6" data-trombinoscope-row="" data-display-range-value="true"/>
+                    <we-range class="o_we_sublevel_1 trombi-option-col" string="Column" data-min="2" data-step="1" data-max="6" data-trombinoscope-col="" data-display-range-value="true"/>
+                </div>
             </div>
         </xpath>
 
