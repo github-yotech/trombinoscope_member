@@ -4,6 +4,7 @@ import options from "@web_editor/js/editor/snippets.options";
 
 const TrombinoscopeMemberOptions = options.Class.extend({
     init: function () {
+        console.debug("Load Trombinoscope Options")
         this._super(...arguments);
     },
     start: function () {
@@ -65,8 +66,10 @@ const TrombinoscopeMemberOptions = options.Class.extend({
         this.$el.find('.trombinoscope-selection we-toggler').attr('data-placeholder-text', trombi);
     },
     _loadSize: function (previewMode, value) {
-        const size = this.$target.attr('data-trombinoscope-size') || '3';
-        this.$el.find('we-range > div > input')[0].setAttribute('value', size);
+        const colSize = this.$target.attr('data-trombinoscope-col') || '3';
+        const rowSize = this.$target.attr('data-trombinoscope-row') || '3';
+        this.$el.find("we-range.trombi-option-col > div > input")[0].setAttribute('value', colSize);
+        this.$el.find("we-range.trombi-option-row > div > input")[0].setAttribute('value', rowSize);
     },
     setTrombinoscopeSize: function (previewMode, widgetValue, params) {
         // Place widget value to data column
@@ -75,7 +78,21 @@ const TrombinoscopeMemberOptions = options.Class.extend({
             this._rerender_preview(widgetValue);
         }
     },
-    _rerender_preview: function (size) {
+    trombinoscopeRow: function (previewMode, widgetValue, params) {
+        if (this.$target.attr('data-trombinoscope-row') != widgetValue && widgetValue != "") {
+            this.$target[0].setAttribute('data-trombinoscope-row', widgetValue);
+            this._rerender_preview();
+        }
+    },
+    trombinoscopeCol: function (previewMode, widgetValue, params) {
+        if (this.$target.attr('data-trombinoscope-col') != widgetValue && widgetValue != "") {
+            this.$target[0].setAttribute('data-trombinoscope-col', widgetValue);
+            this._rerender_preview();
+        }
+    },
+    _rerender_preview: function () {
+        const colSize = parseInt(this.$target.attr('data-trombinoscope-col')) || 0;
+        const rowSize = parseInt(this.$target.attr('data-trombinoscope-row')) || 0;
 
         let gridElement = this.$target.find('.s_nb_grid');
         if (!gridElement) {
@@ -84,10 +101,9 @@ const TrombinoscopeMemberOptions = options.Class.extend({
         }
 
         let res = ""
-        size = parseInt(size)
-        for (let i = 0; i < size; i++) {
+        for (let i = 0; i < rowSize; i++) {
             res += `<div class="row trombinoscope-row gx-1 mb-2 justify-content-center">`;
-            for (let j = 0; j < size; j++) {
+            for (let j = 0; j < colSize; j++) {
                 res += `<div class="col-auto">
                             <div class="card trombinoscope-card">
                                 <a href="#" class="trombinoscope-card-link">
