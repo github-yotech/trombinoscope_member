@@ -235,7 +235,8 @@
         </xpath>
     </template>
 
-    <!-- Register asset so it available for public -->
+    <!-- Register asset dynamically-->
+    <!-- TODO: Why static register don't work ?? -->
     <record id="yo_trombinoscope_member.s_trombinoscope_member_000_js" model="ir.asset">
         <field name="name">Trombinoscope Member 000 JS</field>
         <field name="bundle">web.assets_frontend</field>
@@ -246,6 +247,12 @@
         <field name="name">Trombinoscope Member 000 SCSS</field>
         <field name="bundle">web.assets_frontend</field>
         <field name="path">yo_trombinoscope_member/static/src/snippets/s_trombinoscope_member/000.scss</field>
+    </record>
+
+    <record id="yo_trombinoscope_member.s_trombinoscope_member_options_js" model="ir.asset">
+        <field name="name">Trombinoscope Member Options JS</field>
+        <field name="bundle">website.assets_wysiwyg</field>
+        <field name="path">yo_trombinoscope_member/static/src/snippets/s_trombinoscope_member/options.js</field>
     </record>
 
 
