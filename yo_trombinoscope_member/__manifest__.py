@@ -16,6 +16,7 @@ Features including:
         "views/trombinoscope_list.xml",
         'views/snippets/s_trombinoscope_member.xml',
         'views/snippets/snippets.xml',
+        'views/res_partner.xml'
     ],
     "assets": {
         "web.assets_frontend": [
