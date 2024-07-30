@@ -36,6 +36,8 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         }
 
         let index = 0;
+        // Calculate col Number
+        const colNum = Math.floor(12 / colSize)
         for (let i = 0; i < rowSize; i++) {
             let rowContent = `<div class="row trombinoscope-row gx-1 mb-2 justify-content-center">`;
             let rowBreak = false;
@@ -51,17 +53,11 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
                 const detail = JSON.stringify(rest);
 
                 rowContent += `
-                    <div class="col-auto">
-                        <div class="card trombinoscope-card" data-detail='${detail}'>
-                            <a href="#" class="trombinoscope-card-link">
-                                <img src="data:image/png;base64,${image}" class="card-img-top img-thumbnail" alt="..."/>
-                                <div class="card-body trombinoscope-card-text">
-                                    <h5 class="card-title">
-                                        ${rest.name}
-                                    </h5>
-                                </div>
-                            </a>
-                        </div>
+                    <div class="col-${colNum} trombinoscope-card m-1" data-detail='${detail}'>
+                        <figure class="figure">
+                            <img src="data:image/png;base64,${image}" class="figure-img img-fluid rounded trombinoscope-img" alt="img ${rest.name}"/>
+                            <figcaption class="figure-caption">${rest.name}</figcaption>
+                        </figure>
                     </div>
                 `;
                 index += 1;
@@ -82,7 +78,7 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         cardElement.on('click .trombinoscope-card', ev => {
             const card = $(ev.target).closest('.trombinoscope-card')
             const detail = card.data('detail')
-            const image = card.find('.card-img-top').attr('src')
+            const image = card.find('.trombinoscope-img').attr('src')
             this.showModal(image, detail)
         })
     },
@@ -131,10 +127,10 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         let bodyElement = `
         <div class="container-fluid">
             <div class="row">
-                <div class="col">
-                <image class="img-fluid" src="${image}"/>
+                <div class="col-5 col-lg-5 col-sm-12">
+                <image class="img-fluid trombi-modla-img" src="${image}"/>
                 </div>
-                <div class="col">
+                <div class="col-7 col-lg-7 col-sm-12">
                 <table class="table table-borderless table-responsive table-sm align-top">
                     <tbody>
                         ${detailElement}

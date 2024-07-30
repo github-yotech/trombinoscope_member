@@ -104,22 +104,11 @@ const TrombinoscopeMemberOptions = options.Class.extend({
         for (let i = 0; i < rowSize; i++) {
             res += `<div class="row trombinoscope-row gx-1 mb-2 justify-content-center">`;
             for (let j = 0; j < colSize; j++) {
-                res += `<div class="col-auto">
-                            <div class="card trombinoscope-card">
-                                <a href="#" class="trombinoscope-card-link">
-                                    <img src="/yo_trombinoscope_member/static/src/img/placeholder-150.png" class="card-img-top img-thumbnail" alt="...">
-                                    <div class="card-body trombinoscope-card-text">
-                                        <h5 class="card-title placeholder-glow">
-                                            <span class="placeholder col-6"></span>
-                                        </h5>
-                                        <p class="card-text placeholder-glow">
-                                            <span class="placeholder col-4"></span>
-                                            <span class="placeholder col-7"></span>
-                                            <span class="placeholder col-7"></span>
-                                        </p>
-                                    </div>
-                                </a>
-                            </div>
+                res += `<div class="col-3 trombinoscope-card m-1" data-detail=''>
+                            <figure class="figure">
+                                <img src="/yo_trombinoscope_member/static/src/img/placeholder-150.png" class="figure-img img-fluid rounded trombinoscope-img" alt="palceholder"/>
+                                <figcaption class="figure-caption placeholder-gloe"><span class="placeholder col-11"/></figcaption>
+                            </figure>
                         </div>`;
             }
             res += '</div>';
