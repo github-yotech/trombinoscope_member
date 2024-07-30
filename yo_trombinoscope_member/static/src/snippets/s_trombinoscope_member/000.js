@@ -5,28 +5,13 @@ import publicWidget from "@web/legacy/js/public/public_widget";
 const TrombinoscopeMember = publicWidget.Widget.extend({
     selector: '.trombinoscope-member',
     init: function () {
+        console.debug("Load Trombinoscope")
         this._super.apply(this, arguments);
         this.rpc = this.bindService("rpc");
     },
 
     start() {
         this.loadImage();
-    },
-    convertToSquareMatrix(arr, size) {
-        // Check if the array can form a perfect square matrix
-        while (size * size > arr.length) {
-            size -= 1
-        }
-
-        const matrix = [];
-        for (let i = 0; i < size; i++) {
-            matrix[i] = [];
-            for (let j = 0; j < size; j++) {
-                matrix[i][j] = arr[i * size + j];
-            }
-        }
-
-        return matrix;
     },
     renderImgGrid(responses) {
         if (responses.length == 0) {
@@ -40,43 +25,62 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         }
 
         // Structure images to rectangle(TxT) grid
-        let colSize = parseInt(this.$target.attr('data-trombinoscope-size')) || '3';
-        let data = this.convertToSquareMatrix(responses, colSize)
+        const colSize = parseInt(this.$target.attr('data-trombinoscope-col')) || 1;
+        const rowSize = parseInt(this.$target.attr('data-trombinoscope-row')) || 1;
+        const data = responses
         let res = "";
-        let index = 0;
+
         if (data.length == 0) {
             console.warn("No trombinoscope image")
             return;
         }
 
-        // Determine coll class
-        data.forEach(row => {
-            res += `<div class="row trombinoscope-row gx-1 mb-2 justify-content-center">`;
-            row.forEach(col => {
-                res += `
-                    <div class="col-auto">
-                        <div class="card trombinoscope-card">
-                            <a href="${col.url}" class="trombinoscope-card-link">
-                                <img src="data:image/png;base64,${col.image}" class="card-img-top img-thumbnail" alt="..."/>
-                                <div class="card-body trombinoscope-card-text">
-                                    <h5 class="card-title">
-                                        ${col.name}
-                                    </h5>
-                                    <p class="card-text mb-0">${col.title}</p>
-                                    <p class="card-text mb-0">${col.company}</p>
-                                    <p class="card-text mb-0">${col.activity}</p>
-                                </div>
-                            </a>
-                        </div>
+        let index = 0;
+        // Calculate col Number
+        const colNum = Math.floor(12 / colSize)
+        for (let i = 0; i < rowSize; i++) {
+            let rowContent = `<div class="row trombinoscope-row gx-1 mb-2 justify-content-center">`;
+            let rowBreak = false;
+
+            for (let j = 0; j < colSize; j++) {
+                if (!data[index]) {
+                    rowBreak = true;
+                    break;
+                }
+
+                const colData = data[index];
+                const { image, ...rest } = colData;
+                const detail = JSON.stringify(rest);
+
+                rowContent += `
+                    <div class="col-${colNum} trombinoscope-card m-1" data-detail='${detail}'>
+                        <figure class="figure">
+                            <img src="data:image/png;base64,${image}" class="figure-img img-fluid rounded trombinoscope-img" alt="img ${rest.name}"/>
+                            <figcaption class="figure-caption">${rest.name}</figcaption>
+                        </figure>
                     </div>
                 `;
                 index += 1;
-            });
-            res += `</div>`;
-        });
+            }
 
+            rowContent += `</div>`;
+            res += rowContent;
+
+            if (rowBreak) {
+                break;
+            }
+        }
 
         gridElement.html(res);
+
+        // register onclick card
+        const cardElement = gridElement.find('.trombinoscope-card')
+        cardElement.on('click .trombinoscope-card', ev => {
+            const card = $(ev.target).closest('.trombinoscope-card')
+            const detail = card.data('detail')
+            const image = card.find('.trombinoscope-img').attr('src')
+            this.showModal(image, detail)
+        })
     },
     /**
      * @private
@@ -90,7 +94,7 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         return responses;
     },
     async loadImage(previewMode) {
-        if (previewMode){
+        if (previewMode) {
             return;
         }
 
@@ -101,6 +105,47 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         let data = await this._fetch();
         this.renderImgGrid(data);
     },
+    showModal(image, data) {
+        let modal = this.$target.find('.trombinoscope-modal');
+
+        // Set Modal Title
+        modal.find('.modal-title').html((data['name'] || ''))
+
+
+        // Set Modal Body
+        let detailElement = '';
+        for (const [key, value] of Object.entries(data)) {
+            const val = value != '' && value != null ? value : '-'
+            detailElement += `
+            <tr>
+                <th scope="row">${(key.toUpperCase())}</th>
+                <td>: ${val}</td>
+            </tr>
+            `
+        }
+
+        let bodyElement = `
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-5 col-lg-5 col-sm-12">
+                <image class="img-fluid trombi-modla-img" src="${image}"/>
+                </div>
+                <div class="col-7 col-lg-7 col-sm-12">
+                <table class="table table-borderless table-responsive table-sm align-top">
+                    <tbody>
+                        ${detailElement}
+                    </tbody>
+                </table>
+                </div>
+                
+            </div>
+        </div>`
+
+        modal.find('.modal-body').html(bodyElement)
+
+
+        modal.modal('show');
+    }
 
 });
 
