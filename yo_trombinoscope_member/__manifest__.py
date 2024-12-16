@@ -1,6 +1,6 @@
 {
     "name": "Trombinoscope Member",
-    "version": "17.0.1.0.0",
+    "version": "18.0.1.0.0",
     "depends": ["membership", "website", "web_editor"],
     "author": "Yotech",
     "license": "Other proprietary",

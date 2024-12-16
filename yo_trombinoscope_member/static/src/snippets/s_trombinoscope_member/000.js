@@ -1,12 +1,13 @@
 /** @odoo-module **/
 
 import publicWidget from "@web/legacy/js/public/public_widget";
+import { rpc } from "@web/core/network/rpc";
 
 const TrombinoscopeMember = publicWidget.Widget.extend({
     selector: '.trombinoscope-member',
     init: function () {
         this._super.apply(this, arguments);
-        this.rpc = this.bindService("rpc");
+        this.rpc = rpc;
     },
 
     start() {
