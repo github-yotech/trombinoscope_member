@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import options from "@web_editor/js/editor/snippets.options";
+import { rpc } from "@web/core/network/rpc";
 
 const TrombinoscopeMemberOptions = options.Class.extend({
     init: function () {
@@ -20,7 +21,7 @@ const TrombinoscopeMemberOptions = options.Class.extend({
         // Since it's load after init
         // We need to handle everything manually
 
-        const res = await this.rpc('/trombinoscope/list');
+        const res = await rpc('/trombinoscope/list');
 
         if (res.length == 0) {
             return;

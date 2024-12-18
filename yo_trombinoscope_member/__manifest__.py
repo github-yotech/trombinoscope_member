@@ -17,13 +17,5 @@ Features including:
         'views/snippets/s_trombinoscope_member.xml',
         'views/snippets/snippets.xml',
     ],
-    "assets": {
-        "website.assets_wysiwyg": [
-            "yo_trombinoscope_member/static/src/snippets/s_trombinoscope_member/options.js",
-        ],
-        "web.assets_frontend": [
-            "yo_trombinoscope_member/static/src/snippets/s_trombinoscope_member/000.js",
-            "yo_trombinoscope_member/static/src/snippets/s_trombinoscope_member/000.scss",
-        ],
-    },
+    # "assets" likely has been deprecated. assets are loaded by making ir.asset record
 }
