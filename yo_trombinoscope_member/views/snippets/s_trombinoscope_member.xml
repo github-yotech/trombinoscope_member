@@ -235,5 +235,11 @@
         <field name="path">yo_trombinoscope_member/static/src/snippets/s_trombinoscope_member/000.scss</field>
     </record>
 
+    <record id="yo_trombinoscope_member.snippets_options" model="ir.asset">
+        <field name="name">Trombinoscope Member Options</field>
+        <field name="bundle">website.assets_wysiwyg</field>
+        <field name="path">yo_trombinoscope_member/static/src/snippets/s_trombinoscope_member/options.js</field>
+    </record>
+
 
 </odoo>
