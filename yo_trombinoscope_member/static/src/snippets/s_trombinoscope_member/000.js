@@ -7,7 +7,6 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
     selector: '.trombinoscope-member',
     init: function () {
         this._super.apply(this, arguments);
-        this.rpc = rpc;
     },
 
     start() {
@@ -87,7 +86,7 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         let colSize = parseInt(this.$target.attr('data-trombinoscope-size')) || 3;
         colSize = colSize ** 2;
 
-        const responses = await this.rpc('/trombinoscope/list/member', { 'trombinoscope': tromb, 'limit': colSize });
+        const responses = await rpc('/trombinoscope/list/member', { 'trombinoscope': tromb, 'limit': colSize });
         return responses;
     },
     async loadImage(previewMode) {
