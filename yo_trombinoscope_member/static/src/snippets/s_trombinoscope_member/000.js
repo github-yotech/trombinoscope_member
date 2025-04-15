@@ -57,6 +57,7 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
                         <figure class="figure">
                             <img src="data:image/png;base64,${image}" class="figure-img img-fluid rounded trombinoscope-img" alt="img ${rest.name}"/>
                             <figcaption class="figure-caption">${rest.name}</figcaption>
+                            <i>${rest.favorite_quote ? rest.favorite_quote : ""}</i>
                         </figure>
                     </div>
                 `;
