@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import publicWidget from "@web/legacy/js/public/public_widget";
+import { _t } from "@web/core/l10n/translation";
 
 const TrombinoscopeMember = publicWidget.Widget.extend({
     selector: '.trombinoscope-member',
