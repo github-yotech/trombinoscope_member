@@ -120,7 +120,7 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
             const val = value != '' && value != null ? value : '-'
             detailElement += `
             <tr>
-                <th scope="row">${(key.toUpperCase())}</th>
+                <th scope="row">${(key.toUpperCase().replaceAll("_", " "))}</th>
                 <td>: ${val}</td>
             </tr>
             `

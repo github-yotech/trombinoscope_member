@@ -11,6 +11,11 @@
                     <field name="trombinoscope_ids" widget="many2many_tags"/>
                 </group>
             </xpath>
+            <xpath expr="//group" position="inside">
+                <group>
+                    <field name="favorite_quote" />
+                </group>
+            </xpath>
         </field>
     </record>
 
