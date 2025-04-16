@@ -13,6 +13,7 @@
             </xpath>
             <xpath expr="//group" position="inside">
                 <group>
+                    <field name="description" />
                     <field name="favorite_quote" />
                 </group>
             </xpath>
