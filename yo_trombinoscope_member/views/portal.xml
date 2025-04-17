@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="portal_my_details_fields" inherit_id="portal.portal_my_details_fields">
+        <xpath expr="//input[@name='phone']/.." position="after">
+            <div t-attf-class="mb-3 #{error.get('description') and 'o_has_error' or ''} col-xl-6">
+                <label class="col-form-label" for="description">Description</label>
+                <!-- Dont give space in here -->
+                <textarea rows="3" maxlength="500" name="description" t-attf-class="form-control #{error.get('description') and 'is-invalid' or ''}"><t t-out="description or partner.description"/></textarea>
+            </div>
+            <div t-attf-class="mb-3 #{error.get('favorite_quote') and 'o_has_error' or ''} col-xl-6">
+                <input 
+                    type="text" 
+                    name="favorite_quote" 
+                    t-attf-class="form-control #{error.get('favorite_quote') and 'is-invalid' or ''}" 
+                    t-att-value="favorite_quote or partner.favorite_quote" />
+            </div>
+        </xpath>
+
+    </template>
+
+</odoo>
