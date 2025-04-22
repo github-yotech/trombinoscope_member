@@ -8,13 +8,3 @@ class Partner(models.Model):
     
     description = fields.Text("Description")
     favorite_quote = fields.Char('Favorite Quote')
-    # trombinoscope_ids = fields.Many2many(string="Trombiniscopes", compute="_compute_trombinoscope_ids", inverse="_inverse_trombinoscope_ids")
-
-    # @api.depends("trombinoscope_member_ids")
-    # def _compute_trombinoscope_ids(self):
-    #     for rec in self:
-    #         rec.trombinoscope_ids = [Command.set(rec.trombinoscope_member_ids.trombinoscope_id.ids)]
-
-    # def _inverse_trombinoscope_ids(self):
-    #     for rec in self:
-    #         pass

@@ -18,7 +18,6 @@ class TrombinoscopeList(models.Model):
             "favorite_quote": x.favorite_quote or '',
             "title": x.title.name or '',
             "company": x.company_id.name or '',
-            "activity": ''
         })
         return res
 
