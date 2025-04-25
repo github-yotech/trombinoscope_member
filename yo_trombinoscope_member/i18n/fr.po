@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0-20240927\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-17 10:09+0000\n"
-"PO-Revision-Date: 2025-04-17 10:09+0000\n"
+"POT-Creation-Date: 2025-04-25 09:10+0000\n"
+"PO-Revision-Date: 2025-04-25 09:10+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -64,8 +64,14 @@ msgstr ""
 #. module: yo_trombinoscope_member
 #: model:ir.model.fields,field_description:yo_trombinoscope_member.field_res_partner__favorite_quote
 #: model:ir.model.fields,field_description:yo_trombinoscope_member.field_res_users__favorite_quote
+#: model_terms:ir.ui.view,arch_db:yo_trombinoscope_member.portal_my_details_fields
 msgid "Favorite Quote"
-msgstr ""
+msgstr "Phrase Inspirante"
+
+#. module: yo_trombinoscope_member
+#: model:ir.model,name:yo_trombinoscope_member.model_ir_http
+msgid "HTTP Routing"
+msgstr "Routage HTTP"
 
 #. module: yo_trombinoscope_member
 #: model:ir.model.fields,field_description:yo_trombinoscope_member.field_trombinoscope_list__id
@@ -155,15 +161,19 @@ msgid "Trombinoscope Member"
 msgstr ""
 
 #. module: yo_trombinoscope_member
+#. odoo-javascript
 #. odoo-python
 #: code:addons/yo_trombinoscope_member/models/trombinoscope_list.py:0
+#: code:addons/yo_trombinoscope_member/static/src/snippets/s_trombinoscope_member/000.js:0
 #, python-format
 msgid "company"
 msgstr "Structure"
 
 #. module: yo_trombinoscope_member
+#. odoo-javascript
 #. odoo-python
 #: code:addons/yo_trombinoscope_member/models/trombinoscope_list.py:0
+#: code:addons/yo_trombinoscope_member/static/src/snippets/s_trombinoscope_member/000.js:0
 #, python-format
 msgid "favorite_quote"
 msgstr "Phrase inspirante"
@@ -176,8 +186,10 @@ msgid "image"
 msgstr ""
 
 #. module: yo_trombinoscope_member
+#. odoo-javascript
 #. odoo-python
 #: code:addons/yo_trombinoscope_member/models/trombinoscope_list.py:0
+#: code:addons/yo_trombinoscope_member/static/src/snippets/s_trombinoscope_member/000.js:0
 #, python-format
 msgid "name"
 msgstr "Prénom NOM"
@@ -188,8 +200,10 @@ msgid "placeholder"
 msgstr ""
 
 #. module: yo_trombinoscope_member
+#. odoo-javascript
 #. odoo-python
 #: code:addons/yo_trombinoscope_member/models/trombinoscope_list.py:0
+#: code:addons/yo_trombinoscope_member/static/src/snippets/s_trombinoscope_member/000.js:0
 #, python-format
 msgid "title"
 msgstr "Titre"
