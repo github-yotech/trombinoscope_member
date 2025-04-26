@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 
 class TrombinoscopeList(models.Model):
     _name = 'trombinoscope.list'
@@ -12,13 +12,20 @@ class TrombinoscopeList(models.Model):
         self.ensure_one()
         members = self.member_ids.search([('trombinoscope_id', '=', self.id)])
         members = members.filtered(lambda x: x.is_active is True)
+        # these are for sneaking-in these strings into the po file
+        # without them, these words wouldn't be registered
+        _("name")
+        _("image")
+        _("title")
+        _("company")
+        _("favorite_quote")
         res = members.partner_id.mapped(lambda x: {
             "name": x.name,
             "image": x.image_256,
-            "favorite_quote": x.favorite_quote or '',
             "title": x.title.name or '',
             "company": x.company_id.name or '',
-            "activity": ''
+            "favorite_quote": x.favorite_quote or '',
+            # _("activity"): ''
         })
         return res
 

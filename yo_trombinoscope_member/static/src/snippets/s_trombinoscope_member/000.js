@@ -113,14 +113,20 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         // Set Modal Title
         modal.find('.modal-title').html((data['name'] || ''))
 
+        // part 1 of 2 on applying workaround to bring translation to the frontend
+        _t("name")
+        _t("title")
+        _t("company")
+        _t("favorite_quote")
 
         // Set Modal Body
         let detailElement = '';
         for (const [key, value] of Object.entries(data)) {
             const val = value != '' && value != null ? value : '-'
+            console.log(key)
             detailElement += `
             <tr>
-                <th scope="row">${(key.toUpperCase().replaceAll("_", " "))}</th>
+                <th scope="row">${(_t(key).toUpperCase().replaceAll("_", " "))}</th>
                 <td>: ${val}</td>
             </tr>
             `
