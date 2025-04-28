@@ -84,8 +84,8 @@
                     <we-button data-select-trombinoscope="" data-select-trombinoscope-name="None" data-reload="/" class="trombinoscope-selection">None</we-button>
                 </we-select>
                 <div>
-                    <we-range class="o_we_sublevel_1 trombi-option-row" string="Row" data-min="2" data-step="1" data-max="6" data-trombinoscope-row="" data-display-range-value="true"/>
-                    <we-range class="o_we_sublevel_1 trombi-option-col" string="Column" data-min="2" data-step="1" data-max="6" data-trombinoscope-col="" data-display-range-value="true"/>
+                    <we-range class="o_we_sublevel_1 trombi-option-row" string="Row" data-min="2" data-step="1" data-max="25" data-trombinoscope-row="" data-display-range-value="true"/>
+                    <we-range class="o_we_sublevel_1 trombi-option-col" string="Column" data-min="2" data-step="1" data-max="5" data-trombinoscope-col="" data-display-range-value="true"/>
                 </div>
             </div>
         </xpath>
