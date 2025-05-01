@@ -122,8 +122,8 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         // Set Modal Body
         let detailElement = '';
         for (const [key, value] of Object.entries(data)) {
+            if (key === 'description') { continue }
             const val = value != '' && value != null ? value : '-'
-            console.log(key)
             detailElement += `
             <tr>
                 <th scope="row">${(_t(key).toUpperCase().replaceAll("_", " "))}</th>
@@ -146,6 +146,12 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
                 </table>
                 </div>
                 
+            </div>
+            <div class="container-fluid mt-2">
+                <h5>Description</h5>
+                <div class="my-2">
+                    ${data.description}
+                </div>
             </div>
         </div>`
 
