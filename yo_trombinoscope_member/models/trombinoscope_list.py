@@ -1,4 +1,7 @@
+from base64 import b64encode
+
 from odoo import api, fields, models, _
+from odoo.tools import file_open
 
 class TrombinoscopeList(models.Model):
     _name = 'trombinoscope.list'
@@ -7,6 +10,15 @@ class TrombinoscopeList(models.Model):
     name = fields.Char("Name", required=True)
     is_active = fields.Boolean("Active", default=True)
     member_ids = fields.One2many("trombinoscope.list.member", "trombinoscope_id", string="Members")
+    member_placeholder_image = fields.Image(
+        max_width=256,
+        max_height=256,
+        default=lambda self: self._default_member_placeholder_image(),
+    )
+
+    @api.model
+    def _default_member_placeholder_image(self):
+        return b64encode(file_open(self._get_default_member_placeholder_image_path(), 'rb').read())
 
     def get_members(self):
         self.ensure_one()
@@ -22,7 +34,7 @@ class TrombinoscopeList(models.Model):
         _("description")
         res = members.partner_id.mapped(lambda x: {
             "name": x.name,
-            "image": x.image_256,
+            "image": x.image_256 or self.member_placeholder_image,
             "title": x.title.name or '',
             "company": x.company_id.name or '',
             "favorite_quote": x.favorite_quote or '',
@@ -30,6 +42,10 @@ class TrombinoscopeList(models.Model):
             # _("activity"): ''
         })
         return res
+
+    @api.model
+    def _get_default_member_placeholder_image_path(self):
+        return "base/static/img/avatar_grey.png"
 
 class TrombinoscopeListMember(models.Model):
     _name = "trombinoscope.list.member"
