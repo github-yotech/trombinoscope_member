@@ -2,7 +2,23 @@
 <odoo>
 
     <template id="portal_my_details_fields" inherit_id="portal.portal_my_details_fields">
+        <xpath expr="//input[@name='name']/.." position="before">
+            <div t-if="partner.image_1920" class="mb-3 col-xl-3">
+                <img t-attf-src="data:image/png;base64,#{partner.image_1920}" width="128px" height="128px" style="object-fit: cover;"/>
+            </div>
+            <div t-attf-class="mb-3 #{error.get('image_1920') and 'o_has_error' or ''} col-xl-9">
+                <label class="col-form-label" for="image_1920">Load my profile picture</label>
+                <input 
+                    type="file"
+                    name="image_1920"
+                    accept="image/*"
+                    t-attf-class="form-control #{error.get('image_1920') and 'is-invalid' or ''}" />
+            </div>
+            <div class="clearfix" />
+        </xpath>
+
         <xpath expr="//input[@name='phone']/.." position="after">
+            <div class="clearfix" />
             <div t-attf-class="mb-3 #{error.get('description') and 'o_has_error' or ''} col-xl-6">
                 <label class="col-form-label" for="description">Description</label>
                 <!-- Dont give space in here -->
@@ -18,6 +34,12 @@
             </div>
         </xpath>
 
+    </template>
+
+    <template id="portal_my_details" inherit_id="portal.portal_my_details">
+        <form action="/my/account" position="attributes">
+            <attribute name="enctype">multipart/form-data</attribute>
+        </form>
     </template>
 
 </odoo>
