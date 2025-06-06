@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0-20240927\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-16 16:42+0000\n"
-"PO-Revision-Date: 2025-05-16 16:42+0000\n"
+"POT-Creation-Date: 2025-06-06 14:45+0000\n"
+"PO-Revision-Date: 2025-06-06 14:45+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,15 +16,30 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: yo_trombinoscope_member
+#: model_terms:ir.ui.view,arch_db:yo_trombinoscope_member.partner_page
+msgid "<i class=\"fa fa-chevron-left me-2\"/>Back to trombinoscope"
+msgstr "<i class=\"fa fa-chevron-left me-2\"/>Retourner au trombinoscope"
+
+#. module: yo_trombinoscope_member
+#: model_terms:ir.ui.view,arch_db:yo_trombinoscope_member.partner_detail
+msgid "<span class=\"mb-3 fw-bold\">Description</span>"
+msgstr ""
+
+#. module: yo_trombinoscope_member
+#: model_terms:ir.ui.view,arch_db:yo_trombinoscope_member.partner_detail
+msgid "<span class=\"mb-3 fw-bold\">Favorite quote</span>"
+msgstr "<span class=\"mb-3 fw-bold\">Phrase inspirante</span>"
+
+#. module: yo_trombinoscope_member
 #: model:ir.model.fields,field_description:yo_trombinoscope_member.field_trombinoscope_list__is_active
 #: model:ir.model.fields,field_description:yo_trombinoscope_member.field_trombinoscope_list_member__is_active
 msgid "Active"
 msgstr "Actif"
 
 #. module: yo_trombinoscope_member
-#: model_terms:ir.ui.view,arch_db:yo_trombinoscope_member.s_trombinoscope_member
-msgid "Close"
-msgstr "Fermer"
+#: model_terms:ir.ui.view,arch_db:yo_trombinoscope_member.partner_page
+msgid "Back to trombinoscope"
+msgstr ""
 
 #. module: yo_trombinoscope_member
 #: model_terms:ir.ui.view,arch_db:yo_trombinoscope_member.s_trombinoscope_options
@@ -97,11 +112,6 @@ msgid "Load my profile picture"
 msgstr "Charger ma photo de profil"
 
 #. module: yo_trombinoscope_member
-#: model_terms:ir.ui.view,arch_db:yo_trombinoscope_member.s_trombinoscope_member
-msgid "Member"
-msgstr "Membre"
-
-#. module: yo_trombinoscope_member
 #: model:ir.model.fields,field_description:yo_trombinoscope_member.field_trombinoscope_list_member__partner_id
 msgid "Member Name"
 msgstr "Nom du membre"
@@ -115,11 +125,6 @@ msgstr "Image par défaut des membres"
 #: model:ir.model.fields,field_description:yo_trombinoscope_member.field_trombinoscope_list__member_ids
 msgid "Members"
 msgstr "Membres"
-
-#. module: yo_trombinoscope_member
-#: model_terms:ir.ui.view,arch_db:yo_trombinoscope_member.s_trombinoscope_member
-msgid "Modal body text goes here."
-msgstr "Le texte du corps modulaire est placé ici."
 
 #. module: yo_trombinoscope_member
 #: model:ir.model.fields,field_description:yo_trombinoscope_member.field_trombinoscope_list__name
@@ -171,10 +176,8 @@ msgid "Trombinoscope Member"
 msgstr "Membre du trombinoscope"
 
 #. module: yo_trombinoscope_member
-#. odoo-javascript
 #. odoo-python
 #: code:addons/yo_trombinoscope_member/models/trombinoscope_list.py:0
-#: code:addons/yo_trombinoscope_member/static/src/snippets/s_trombinoscope_member/000.js:0
 #, python-format
 msgid "company"
 msgstr "Structure"
@@ -187,10 +190,8 @@ msgid "description"
 msgstr ""
 
 #. module: yo_trombinoscope_member
-#. odoo-javascript
 #. odoo-python
 #: code:addons/yo_trombinoscope_member/models/trombinoscope_list.py:0
-#: code:addons/yo_trombinoscope_member/static/src/snippets/s_trombinoscope_member/000.js:0
 #, python-format
 msgid "favorite_quote"
 msgstr "Phrase inspirante"
@@ -203,10 +204,8 @@ msgid "image"
 msgstr ""
 
 #. module: yo_trombinoscope_member
-#. odoo-javascript
 #. odoo-python
 #: code:addons/yo_trombinoscope_member/models/trombinoscope_list.py:0
-#: code:addons/yo_trombinoscope_member/static/src/snippets/s_trombinoscope_member/000.js:0
 #, python-format
 msgid "name"
 msgstr "Prénom NOM"
@@ -217,10 +216,8 @@ msgid "placeholder"
 msgstr ""
 
 #. module: yo_trombinoscope_member
-#. odoo-javascript
 #. odoo-python
 #: code:addons/yo_trombinoscope_member/models/trombinoscope_list.py:0
-#: code:addons/yo_trombinoscope_member/static/src/snippets/s_trombinoscope_member/000.js:0
 #, python-format
 msgid "title"
 msgstr "Titre"
