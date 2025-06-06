@@ -40,6 +40,7 @@ class TrombinoscopeList(models.Model):
             "company": x.company_id.name or '',
             "favorite_quote": x.favorite_quote or '',
             "description": x.description or '',
+            "website_published": x.website_published,
             # _("activity"): ''
         })
         return res

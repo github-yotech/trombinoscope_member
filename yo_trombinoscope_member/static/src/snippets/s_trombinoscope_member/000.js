@@ -55,7 +55,7 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
 
                 rowContent += `
                     <div class="col-${colNum} trombinoscope-card m-1">
-                        <a href="/partners/${rest.id}">
+                        <a ${rest.website_published ? "href=\"/partners/" + rest.id + "\"" : ""}>
                             <figure class="figure">
                                 <img src="data:image/png;base64,${image}" class="figure-img img-fluid rounded trombinoscope-img" alt="img ${rest.name}"/>
                                 <figcaption class="figure-caption">${rest.name}</figcaption>
