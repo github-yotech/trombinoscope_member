@@ -54,12 +54,14 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
                 const detail = JSON.stringify(rest);
 
                 rowContent += `
-                    <div class="col-${colNum} trombinoscope-card m-1" data-detail='${detail}'>
-                        <figure class="figure">
-                            <img src="data:image/png;base64,${image}" class="figure-img img-fluid rounded trombinoscope-img" alt="img ${rest.name}"/>
-                            <figcaption class="figure-caption">${rest.name}</figcaption>
-                            <i>${rest.favorite_quote ? rest.favorite_quote : ""}</i>
-                        </figure>
+                    <div class="col-${colNum} trombinoscope-card m-1">
+                        <a href="/partners/${rest.id}">
+                            <figure class="figure">
+                                <img src="data:image/png;base64,${image}" class="figure-img img-fluid rounded trombinoscope-img" alt="img ${rest.name}"/>
+                                <figcaption class="figure-caption">${rest.name}</figcaption>
+                                <i>${rest.favorite_quote ? rest.favorite_quote : ""}</i>
+                            </figure>
+                        </a>
                     </div>
                 `;
                 index += 1;
@@ -74,15 +76,6 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         }
 
         gridElement.html(res);
-
-        // register onclick card
-        const cardElement = gridElement.find('.trombinoscope-card')
-        cardElement.on('click .trombinoscope-card', ev => {
-            const card = $(ev.target).closest('.trombinoscope-card')
-            const detail = card.data('detail')
-            const image = card.find('.trombinoscope-img').attr('src')
-            this.showModal(image, detail)
-        })
     },
     /**
      * @private
@@ -107,59 +100,6 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         let data = await this._fetch();
         this.renderImgGrid(data);
     },
-    showModal(image, data) {
-        let modal = this.$target.find('.trombinoscope-modal');
-
-        // Set Modal Title
-        modal.find('.modal-title').html((data['name'] || ''))
-
-        // part 1 of 2 on applying workaround to bring translation to the frontend
-        _t("name")
-        _t("title")
-        _t("company")
-        _t("favorite_quote")
-
-        // Set Modal Body
-        let detailElement = '';
-        for (const [key, value] of Object.entries(data)) {
-            if (key === 'description') { continue }
-            const val = value != '' && value != null ? value : '-'
-            detailElement += `
-            <tr>
-                <th scope="row">${(_t(key).toUpperCase().replaceAll("_", " "))}</th>
-                <td>: ${val}</td>
-            </tr>
-            `
-        }
-
-        let bodyElement = `
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-5 col-lg-5 col-sm-12">
-                <image class="img-fluid trombi-modla-img" src="${image}"/>
-                </div>
-                <div class="col-7 col-lg-7 col-sm-12">
-                <table class="table table-borderless table-responsive table-sm align-top">
-                    <tbody>
-                        ${detailElement}
-                    </tbody>
-                </table>
-                </div>
-                
-            </div>
-            <div class="container-fluid mt-2">
-                <h5>Description</h5>
-                <div class="my-2">
-                    ${data.description}
-                </div>
-            </div>
-        </div>`
-
-        modal.find('.modal-body').html(bodyElement)
-
-
-        modal.modal('show');
-    }
 
 });
 
