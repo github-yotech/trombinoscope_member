@@ -33,12 +33,14 @@ class TrombinoscopeList(models.Model):
         _("favorite_quote")
         _("description")
         res = members.partner_id.mapped(lambda x: {
+            "id": x.id,
             "name": x.name,
             "image": x.image_256 or self.member_placeholder_image,
             "title": x.title.name or '',
             "company": x.company_id.name or '',
             "favorite_quote": x.favorite_quote or '',
             "description": x.description or '',
+            "website_published": x.website_published,
             # _("activity"): ''
         })
         return res

@@ -1,7 +1,7 @@
 {
     "name": "Trombinoscope Member",
     "version": "17.0.1.0.0",
-    "depends": ["membership", "website"],
+    "depends": ["membership", "website_partner"],
     "author": "Yotech",
     "license": "Other proprietary",
     "category": "theme",
@@ -12,12 +12,15 @@ Features including:
     """,
     "data": [
         "security/ir.model.access.csv",
+
         "data/image_library.xml",
+
         "views/trombinoscope_list.xml",
         'views/snippets/s_trombinoscope_member.xml',
         'views/snippets/snippets.xml',
         'views/res_partner.xml',
         'views/portal.xml',
+        "views/website_partner_templates.xml",
     ],
     "assets": {
         "web.assets_frontend": [
