@@ -5,10 +5,15 @@ import { _t } from "@web/core/l10n/translation";
 
 const TrombinoscopeMember = publicWidget.Widget.extend({
     selector: '.trombinoscope-member',
+    events: {
+        'input .trombinoscope-search': '_onSearchInput',
+    },
+
     init: function () {
         console.debug("Load Trombinoscope")
         this._super.apply(this, arguments);
         this.rpc = this.bindService("rpc");
+        this.allMembers = [];
     },
 
     start() {
@@ -16,6 +21,10 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
     },
     renderImgGrid(responses) {
         if (responses.length == 0) {
+            let gridElement = this.$target.find('.s_nb_grid');
+            if (gridElement) {
+                gridElement.html('<div class="text-center text-muted"><p>No members found</p></div>');
+            }
             return;
         }
 
@@ -25,7 +34,6 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
             return;
         }
 
-        // Structure images to rectangle(TxT) grid
         const colSize = parseInt(this.$target.attr('data-trombinoscope-col')) || 1;
         const rowSize = parseInt(this.$target.attr('data-trombinoscope-row')) || 1;
         const data = responses
@@ -33,6 +41,7 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
 
         if (data.length == 0) {
             console.warn("No trombinoscope image")
+            gridElement.html('<div class="text-center text-muted"><p>No members found</p></div>');
             return;
         }
 
@@ -54,11 +63,12 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
                 const detail = JSON.stringify(rest);
 
                 rowContent += `
-                    <div class="col-${colNum} trombinoscope-card m-1">
+                    <div class="col-${colNum} trombinoscope-card m-1" data-member-name="${rest.name.toLowerCase()}" data-member-company="${rest.company.toLowerCase()}">
                         <a ${rest.website_published ? "href=\"/partners/" + rest.id + "\"" : ""}>
                             <figure class="figure">
                                 <img src="data:image/png;base64,${image}" class="figure-img img-fluid rounded trombinoscope-img" alt="img ${rest.name}"/>
                                 <figcaption class="figure-caption">${rest.name}</figcaption>
+                                <small class="text-muted d-block">${rest.company}</small>
                                 <i>${rest.favorite_quote ? rest.favorite_quote : ""}</i>
                             </figure>
                         </a>
@@ -73,6 +83,61 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
             if (rowBreak) {
                 break;
             }
+        }
+
+        gridElement.html(res);
+    },
+
+    _onSearchInput: function (event) {
+        const searchTerm = event.target.value.toLowerCase().trim();
+        const cards = this.$target.find('.trombinoscope-card');
+
+        if (searchTerm === '') {
+            cards.show();
+            this._reorganizeGrid();
+        } else {
+            cards.each(function () {
+                const $card = $(this);
+                const memberName = $card.data('member-name') || '';
+                const memberCompany = $card.data('member-company') || '';
+
+                if (memberName.includes(searchTerm) || memberCompany.includes(searchTerm)) {
+                    $card.show();
+                } else {
+                    $card.hide();
+                }
+            });
+            this._reorganizeGrid();
+        }
+    },
+
+    _reorganizeGrid: function () {
+        const colSize = parseInt(this.$target.attr('data-trombinoscope-col')) || 3;
+        const visibleCards = this.$target.find('.trombinoscope-card:visible');
+        const gridElement = this.$target.find('.s_nb_grid');
+
+        if (visibleCards.length === 0) {
+            gridElement.html('<div class="text-center text-muted mt-4"><p>No members found for this search</p></div>');
+            return;
+        }
+
+        let res = "";
+        let index = 0;
+        const colNum = Math.floor(12 / colSize);
+
+        while (index < visibleCards.length) {
+            let rowContent = `<div class="row trombinoscope-row gx-1 mb-2 justify-content-center">`;
+
+            for (let j = 0; j < colSize && index < visibleCards.length; j++) {
+                const cardHtml = visibleCards.eq(index).prop('outerHTML');
+
+                const updatedCardHtml = cardHtml.replace(/col-\d+/, `col-${colNum}`);
+                rowContent += updatedCardHtml;
+                index++;
+            }
+
+            rowContent += `</div>`;
+            res += rowContent;
         }
 
         gridElement.html(res);
@@ -98,6 +163,7 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         }
 
         let data = await this._fetch();
+        this.allMembers = data;
         this.renderImgGrid(data);
     },
 

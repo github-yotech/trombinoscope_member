@@ -43,6 +43,9 @@ class TrombinoscopeList(models.Model):
             "website_published": x.website_published,
             # _("activity"): ''
         })
+
+        res = sorted(res, key=lambda x: (x.get('company', '').lower(), x.get('name', '').lower()))
+
         return res
 
     @api.model

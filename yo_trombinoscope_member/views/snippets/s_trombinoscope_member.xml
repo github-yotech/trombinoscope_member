@@ -4,6 +4,16 @@
 
         <section class="trombinoscope-member s_features_grid" data-trombinoscope-row="3" data-trombinoscope-col="3" data-trombinoscope="">
             <div class="container">
+                <div class="row mb-3">
+                    <div class="col-md-6 offset-md-3">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fa fa-search"></i>
+                            </span>
+                            <input type="text" class="form-control trombinoscope-search" placeholder="Search for a member..." aria-label="Search for a member"/>
+                        </div>
+                    </div>
+                </div>
                 <div class="s_nb_grid s_nb_column_fixed">
                     <div class="row trombinoscope-row gx-1 mb-2 justify-content-center">
                         <div class="col-3 trombinoscope-card m-1" data-detail=''>
