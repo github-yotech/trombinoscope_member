@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="view_partner_form" model="ir.ui.view">
-        <field name="name">res.partner.view.form</field>
+    <record id="view_partner_form_trombinoscope" model="ir.ui.view">
+        <field name="name">res.partner.view.form.trombinoscope</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//notebook" position="inside">
-                <page name="trombinoscope" string="Trombinoscope">
-                    <group>
-                        <field name="trombinoscope_ids" widget="many2many_tags"/>
-                    </group>
-                </page>
-            </xpath>
-            <xpath expr="//field[@name='website']/.." position="after">
-                <group>
-                    <field name="description" />
-                    <field name="favorite_quote" />
-                </group>
-            </xpath>
+            <field name="phone" position="after">
+                <field name="description" string="Description"/>
+                <field name="favorite_quote" string="Favorite Quote"/>
+                <field name="trombinoscope_ids" widget="many2many_tags" string="Trombinoscopes"/>
+            </field>
         </field>
     </record>
 
