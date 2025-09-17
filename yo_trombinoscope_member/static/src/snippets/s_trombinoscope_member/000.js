@@ -159,12 +159,7 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         }
 
         if (!this.$target.attr('data-trombinoscope-id')) {
-            // Keep the search bar visible but show placeholder content
-            let gridElement = this.$target.find('.s_nb_grid');
-            if (gridElement) {
-                gridElement.html('<div class="text-center text-muted"><p>Please select a trombinoscope to display members</p></div>');
-            }
-            return;
+            this.renderImgGrid([])
         }
 
         let data = await this._fetch();
