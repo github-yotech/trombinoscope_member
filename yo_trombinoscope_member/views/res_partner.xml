@@ -6,11 +6,15 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <field name="phone" position="after">
-                <field name="description" string="Description"/>
-                <field name="favorite_quote" string="Favorite Quote"/>
-                <field name="trombinoscope_ids" widget="many2many_tags" string="Trombinoscopes"/>
-            </field>
+            <xpath expr="//sheet" position="inside">
+                <group name="trombinoscope_group" string="Trombinoscope">
+                    <group>
+                        <field name="description" string="Description"/>
+                        <field name="favorite_quote" string="Favorite Quote"/>
+                        <field name="trombinoscope_ids" widget="many2many_tags" string="Trombinoscopes"/>
+                    </group>
+                </group>
+            </xpath>
         </field>
     </record>
 
