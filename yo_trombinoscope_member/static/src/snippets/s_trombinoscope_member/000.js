@@ -83,9 +83,14 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
 
                 const colData = data[index];
                 const detail = JSON.stringify(colData);
-                const imageUrl = colData.has_image ?
-                    `/web/image/res.partner/${colData.id}/image` :
-                    '/yo_trombinoscope_member/static/src/img/placeholder-150.png';
+                let imageUrl = '/yo_trombinoscope_member/static/src/img/placeholder-150.png';
+                if (colData.has_image) {
+                    if (colData.image_field) {
+                        imageUrl = `/web/image/res.partner/${colData.id}/${colData.image_field}`;
+                    } else {
+                        imageUrl = `/web/image/res.partner/${colData.id}/image`;
+                    }
+                }
 
                 rowContent += `
                     <div class="col-${colNum} trombinoscope-card m-1" data-member-name="${colData.name.toLowerCase()}" data-member-company="${colData.company.toLowerCase()}">
@@ -121,25 +126,19 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
 
     _onSearchInput: function (event) {
         const searchTerm = event.target.value.toLowerCase().trim();
-        const cards = this.$target.find('.trombinoscope-card');
 
         if (searchTerm === '') {
-            cards.show();
-            this._reorganizeGrid();
-        } else {
-            cards.each(function () {
-                const $card = $(this);
-                const memberName = $card.data('member-name') || '';
-                const memberCompany = $card.data('member-company') || '';
-
-                if (memberName.includes(searchTerm) || memberCompany.includes(searchTerm)) {
-                    $card.show();
-                } else {
-                    $card.hide();
-                }
-            });
-            this._reorganizeGrid();
+            this.renderImgGrid(this.allMembers || []);
+            return;
         }
+
+        const filtered = (this.allMembers || []).filter(item => {
+            const name = (item.name || '').toLowerCase();
+            const company = (item.company || '').toLowerCase();
+            return name.includes(searchTerm) || company.includes(searchTerm);
+        });
+
+        this.renderImgGrid(filtered);
     },
 
     _reorganizeGrid: function () {

@@ -32,20 +32,26 @@ class TrombinoscopeList(models.Model):
         _("company")
         _("favorite_quote")
         _("description")
-        res = members.partner_id.mapped(lambda x: {
-            "id": x.id,
-            "name": x.name,
-            "has_image": bool(getattr(x, 'image_1024', None) or
-                             getattr(x, 'image_1920', None) or
-                             getattr(x, 'image_256', None) or
-                             getattr(x, 'image', None)),
-            "title": x.title.name or '',
-            "company": x.company_id.name or '',
-            "favorite_quote": x.favorite_quote or '',
-            "description": x.description or '',
-            "website_published": getattr(x, 'website_published', False),
-            # _("activity"): ''
-        })
+        partners = members.partner_id
+        res = []
+        for x in partners:
+            image_field = None
+            for f in ('image_1024', 'image_1920', 'image_256', 'image_128', 'image'):
+                if getattr(x, f, None):
+                    image_field = f
+                    break
+
+            res.append({
+                "id": x.id,
+                "name": x.name,
+                "has_image": bool(image_field),
+                "image_field": image_field,
+                "title": x.title.name or '',
+                "company": x.company_id.name or '',
+                "favorite_quote": x.favorite_quote or '',
+                "description": x.description or '',
+                "website_published": getattr(x, 'website_published', False),
+            })
 
         res = sorted(res, key=lambda x: (x.get('company', '').lower(), x.get('name', '').lower()))
 
@@ -75,6 +81,11 @@ class TrombinoscopeList(models.Model):
                 "id": partner.id,
                 "name": partner.name,
                 "has_image": has_image,
+                "image_field": (getattr(partner, 'image_1024', None) and 'image_1024') or
+                               (getattr(partner, 'image_1920', None) and 'image_1920') or
+                               (getattr(partner, 'image_256', None) and 'image_256') or
+                               (getattr(partner, 'image_128', None) and 'image_128') or
+                               (getattr(partner, 'image', None) and 'image') or None,
                 "title": partner.title.name if partner.title else '',
                 "company": partner.company_id.name if partner.company_id else '',
                 "favorite_quote": partner.favorite_quote or '',
