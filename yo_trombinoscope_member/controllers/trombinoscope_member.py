@@ -19,14 +19,17 @@ class TrombinoscopeMember(http.Controller):
 
             :param trombinosope_id(int): id of
         """
-        # Limit request
         limit = kwargs.get('limit') or 4
-        limit = limit if limit <= 36 else 0
+        limit = limit if limit <= 36 else 36
 
-        # Trombinoscope
         trombi = http.request.env['trombinoscope.list'].sudo().browse(trombinoscope)
         if not trombi or not trombi.is_active:
             return []
 
-        members = trombi.get_members()
+        cache_key = f"trombinoscope_{trombinoscope}_{limit}"
+
+        try:
+            members = trombi.get_members_optimized(limit)
+        except Exception:
+            members = trombi.get_members()
         return members

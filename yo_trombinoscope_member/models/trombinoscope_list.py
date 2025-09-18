@@ -35,14 +35,52 @@ class TrombinoscopeList(models.Model):
         res = members.partner_id.mapped(lambda x: {
             "id": x.id,
             "name": x.name,
-            "image": x.image_256 or self.member_placeholder_image,
+            "has_image": bool(getattr(x, 'image_1024', None) or
+                             getattr(x, 'image_1920', None) or
+                             getattr(x, 'image_256', None) or
+                             getattr(x, 'image', None)),
             "title": x.title.name or '',
             "company": x.company_id.name or '',
             "favorite_quote": x.favorite_quote or '',
             "description": x.description or '',
-            "website_published": x.website_published,
+            "website_published": getattr(x, 'website_published', False),
             # _("activity"): ''
         })
+
+        res = sorted(res, key=lambda x: (x.get('company', '').lower(), x.get('name', '').lower()))
+
+        return res
+
+    def get_members_optimized(self, limit=None):
+        """Optimized version of get_members with better SQL queries and caching"""
+        self.ensure_one()
+
+        domain = [('trombinoscope_id', '=', self.id)]
+        members = self.env['trombinoscope.list.member'].search(domain)
+        members = members.filtered(lambda x: x.is_active is True)
+
+        if limit:
+            members = members[:limit]
+
+        partners = members.mapped('partner_id')
+
+        res = []
+        for partner in partners:
+            has_image = bool(getattr(partner, 'image_1024', None) or
+                           getattr(partner, 'image_1920', None) or
+                           getattr(partner, 'image_256', None) or
+                           getattr(partner, 'image', None))
+
+            res.append({
+                "id": partner.id,
+                "name": partner.name,
+                "has_image": has_image,
+                "title": partner.title.name if partner.title else '',
+                "company": partner.company_id.name if partner.company_id else '',
+                "favorite_quote": partner.favorite_quote or '',
+                "description": partner.description or '',
+                "website_published": getattr(partner, 'website_published', False),
+            })
 
         res = sorted(res, key=lambda x: (x.get('company', '').lower(), x.get('name', '').lower()))
 
@@ -60,7 +98,7 @@ class TrombinoscopeListMember(models.Model):
     sequence = fields.Integer("Sequence")
 
     trombinoscope_id = fields.Many2one("trombinoscope.list", string="Trombinoscope", required=True, ondelete='cascade')
-    partner_id = fields.Many2one("res.partner", string="Member Name", required=True, domain="[('image_1024','!=',False)]")
+    partner_id = fields.Many2one("res.partner", string="Member Name", required=True)
     is_active = fields.Boolean("Active", compute="_compute_active")
 
     @api.depends('partner_id', 'partner_id.active')

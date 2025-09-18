@@ -14,10 +14,33 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         this._super.apply(this, arguments);
         this.rpc = this.bindService("rpc");
         this.allMembers = [];
+        this.dataCache = new Map();
     },
 
     start() {
         this.loadImage();
+        this._initLazyLoading();
+    },
+
+    _initLazyLoading() {
+        if ('IntersectionObserver' in window) {
+            this.imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.onload = () => img.classList.add('loaded');
+                            img.removeAttribute('data-src');
+                            observer.unobserve(img);
+                        }
+                    }
+                });
+            }, {
+                rootMargin: '50px 0px',
+                threshold: 0.01
+            });
+        }
     },
     renderImgGrid(responses) {
         if (responses.length == 0) {
@@ -59,17 +82,19 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
                 }
 
                 const colData = data[index];
-                const { image, ...rest } = colData;
-                const detail = JSON.stringify(rest);
+                const detail = JSON.stringify(colData);
+                const imageUrl = colData.has_image ?
+                    `/web/image/res.partner/${colData.id}/image` :
+                    '/yo_trombinoscope_member/static/src/img/placeholder-150.png';
 
                 rowContent += `
-                    <div class="col-${colNum} trombinoscope-card m-1" data-member-name="${rest.name.toLowerCase()}" data-member-company="${rest.company.toLowerCase()}">
-                        <a ${rest.website_published ? "href=\"/partners/" + rest.id + "\"" : ""}>
+                    <div class="col-${colNum} trombinoscope-card m-1" data-member-name="${colData.name.toLowerCase()}" data-member-company="${colData.company.toLowerCase()}">
+                        <a ${colData.website_published ? "href=\"/partners/" + colData.id + "\"" : ""}>
                             <figure class="figure">
-                                <img src="data:image/png;base64,${image}" class="figure-img img-fluid rounded trombinoscope-img" alt="img ${rest.name}"/>
-                                <figcaption class="figure-caption">${rest.name}</figcaption>
-                                <small class="text-muted d-block">${rest.company}</small>
-                                <i>${rest.favorite_quote ? rest.favorite_quote : ""}</i>
+                                <img data-src="${imageUrl}" class="figure-img img-fluid rounded trombinoscope-img lazy-load" alt="img ${colData.name}" loading="lazy" src="data:image/svg+xml,%3csvg%20width='100'%20height='100'%20xmlns='http://www.w3.org/2000/svg'%3e%3crect%20width='100'%20height='100'%20fill='%23f0f0f0'/%3e%3c/svg%3e"/>
+                                <figcaption class="figure-caption">${colData.name}</figcaption>
+                                <small class="text-muted d-block">${colData.company}</small>
+                                <i>${colData.favorite_quote ? colData.favorite_quote : ""}</i>
                             </figure>
                         </a>
                     </div>
@@ -86,6 +111,12 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         }
 
         gridElement.html(res);
+
+        if (this.imageObserver) {
+            gridElement.find('img[data-src]').each((_, img) => {
+                this.imageObserver.observe(img);
+            });
+        }
     },
 
     _onSearchInput: function (event) {
@@ -141,16 +172,38 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         }
 
         gridElement.html(res);
+
+        if (this.imageObserver) {
+            gridElement.find('img[data-src]').each((_, img) => {
+                this.imageObserver.observe(img);
+            });
+        }
     },
     /**
      * @private
      */
     async _fetch() {
         let tromb = parseInt(this.$target.attr('data-trombinoscope-id'));
-        let colSize = parseInt(this.$target.attr('data-trombinoscope-size')) || 3;
-        colSize = colSize ** 2;
+        let rowSize = parseInt(this.$target.attr('data-trombinoscope-row')) || 3;
+        let colSize = parseInt(this.$target.attr('data-trombinoscope-col')) || 3;
 
-        const responses = await this.rpc('/trombinoscope/list/member', { 'trombinoscope': tromb, 'limit': colSize });
+        const optimalLimit = rowSize * colSize;
+        const cacheKey = `${tromb}_${optimalLimit}`;
+
+        if (this.dataCache.has(cacheKey)) {
+            return this.dataCache.get(cacheKey);
+        }
+
+        const responses = await this.rpc('/trombinoscope/list/member', {
+            'trombinoscope': tromb,
+            'limit': optimalLimit
+        });
+
+        this.dataCache.set(cacheKey, responses);
+        setTimeout(() => {
+            this.dataCache.delete(cacheKey);
+        }, 300000);
+
         return responses;
     },
     async loadImage(previewMode) {
@@ -165,6 +218,13 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         let data = await this._fetch();
         this.allMembers = data;
         this.renderImgGrid(data);
+    },
+
+    destroy() {
+        if (this.imageObserver) {
+            this.imageObserver.disconnect();
+        }
+        this._super.apply(this, arguments);
     },
 
 });

@@ -18,57 +18,29 @@
                     <div class="row trombinoscope-row gx-1 mb-2 justify-content-center">
                         <div class="col-3 trombinoscope-card m-1" data-detail=''>
                             <figure class="figure placeholder-glow">
-                                <img src="/yo_trombinoscope_member/static/src/img/placeholder-150.png" class="figure-img img-fluid rounded trombinoscope-img" alt="placeholder"/>
-                                <figcaption class="figure-caption placeholder"></figcaption>
+                                <div class="placeholder bg-secondary rounded trombinoscope-img-placeholder"></div>
+                                <figcaption class="figure-caption">
+                                    <span class="placeholder col-8"></span>
+                                </figcaption>
                             </figure>
                         </div>
                         <div class="col-3 trombinoscope-card m-1" data-detail=''>
                             <figure class="figure placeholder-glow">
-                                <img src="/yo_trombinoscope_member/static/src/img/placeholder-150.png" class="figure-img img-fluid rounded trombinoscope-img" alt="placeholder"/>
-                                <figcaption class="figure-caption placeholder"></figcaption>
+                                <div class="placeholder bg-secondary rounded trombinoscope-img-placeholder"></div>
+                                <figcaption class="figure-caption">
+                                    <span class="placeholder col-6"></span>
+                                </figcaption>
                             </figure>
                         </div>
                         <div class="col-3 trombinoscope-card m-1" data-detail=''>
                             <figure class="figure placeholder-glow">
-                                <img src="/yo_trombinoscope_member/static/src/img/placeholder-150.png" class="figure-img img-fluid rounded trombinoscope-img" alt="placeholder"/>
-                                <figcaption class="figure-caption placeholder"></figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-3 trombinoscope-card m-1" data-detail=''>
-                            <figure class="figure placeholder-glow">
-                                <img src="/yo_trombinoscope_member/static/src/img/placeholder-150.png" class="figure-img img-fluid rounded trombinoscope-img" alt="placeholder"/>
-                                <figcaption class="figure-caption placeholder"></figcaption>
+                                <div class="placeholder bg-secondary rounded trombinoscope-img-placeholder"></div>
+                                <figcaption class="figure-caption">
+                                    <span class="placeholder col-7"></span>
+                                </figcaption>
                             </figure>
                         </div>
                     </div>
-
-                    <div class="row trombinoscope-row gx-1 mb-2 justify-content-center">
-                        <div class="col-3 trombinoscope-card m-1" data-detail=''>
-                            <figure class="figure placeholder-glow">
-                                <img src="/yo_trombinoscope_member/static/src/img/placeholder-150.png" class="figure-img img-fluid rounded trombinoscope-img" alt="placeholder"/>
-                                <figcaption class="figure-caption placeholder"></figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-3 trombinoscope-card m-1" data-detail=''>
-                            <figure class="figure placeholder-glow">
-                                <img src="/yo_trombinoscope_member/static/src/img/placeholder-150.png" class="figure-img img-fluid rounded trombinoscope-img" alt="placeholder"/>
-                                <figcaption class="figure-caption placeholder"></figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-3 trombinoscope-card m-1" data-detail=''>
-                            <figure class="figure placeholder-glow">
-                                <img src="/yo_trombinoscope_member/static/src/img/placeholder-150.png" class="figure-img img-fluid rounded trombinoscope-img" alt="placeholder"/>
-                                <figcaption class="figure-caption placeholder"></figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-3 trombinoscope-card m-1" data-detail=''>
-                            <figure class="figure placeholder-glow">
-                                <img src="/yo_trombinoscope_member/static/src/img/placeholder-150.png" class="figure-img img-fluid rounded trombinoscope-img" alt="placeholder"/>
-                                <figcaption class="figure-caption placeholder"></figcaption>
-                            </figure>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </section>
