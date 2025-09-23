@@ -20,10 +20,9 @@ class TrombinoscopeList(models.Model):
     def _default_member_placeholder_image(self):
         return b64encode(file_open(self._get_default_member_placeholder_image_path(), 'rb').read())
 
-    def get_members(self):
+    def get_members(self, limit=None):
+        """Get members of the trombinoscope with optimized queries"""
         self.ensure_one()
-        members = self.member_ids.search([('trombinoscope_id', '=', self.id)])
-        members = members.filtered(lambda x: x.is_active is True)
         # these are for sneaking-in these strings into the po file
         # without them, these words wouldn't be registered
         _("name")
@@ -32,35 +31,10 @@ class TrombinoscopeList(models.Model):
         _("company")
         _("favorite_quote")
         _("description")
-        partners = members.partner_id
-        res = []
-        for partner in partners:
-            partner_image = partner.get_image_for_display() or self.member_placeholder_image
-
-            res.append({
-                "id": partner.id,
-                "name": partner.name,
-                "has_image": partner.has_image(),
-                "image_field": partner.get_best_image_field(),
-                "image": partner_image,
-                "title": partner.title.name or '',
-                "company": partner.company_id.name or '',
-                "favorite_quote": partner.favorite_quote or '',
-                "description": partner.description or '',
-                "website_published": getattr(partner, 'website_published', False),
-            })
-
-        res = sorted(res, key=lambda x: (x.get('company', '').lower(), x.get('name', '').lower()))
-
-        return res
-
-    def get_members_optimized(self, limit=None):
-        """Optimized version of get_members with better SQL queries and caching"""
-        self.ensure_one()
 
         domain = [('trombinoscope_id', '=', self.id)]
         members = self.env['trombinoscope.list.member'].search(domain)
-        members = members.filtered(lambda x: x.is_active is True)
+        members = members.filtered(lambda member: member.is_active is True)
 
         if limit:
             members = members[:limit]
@@ -84,7 +58,7 @@ class TrombinoscopeList(models.Model):
                 "website_published": getattr(partner, 'website_published', False),
             })
 
-        res = sorted(res, key=lambda x: (x.get('company', '').lower(), x.get('name', '').lower()))
+        res = sorted(res, key=lambda member_data: (member_data.get('company', '').lower(), member_data.get('name', '').lower()))
 
         return res
 
