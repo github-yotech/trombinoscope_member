@@ -84,12 +84,13 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
                 const colData = data[index];
                 const detail = JSON.stringify(colData);
                 let imageUrl = '/yo_trombinoscope_member/static/src/img/placeholder-150.png';
-                if (colData.has_image) {
-                    if (colData.image_field) {
-                        imageUrl = `/web/image/res.partner/${colData.id}/${colData.image_field}`;
-                    } else {
-                        imageUrl = `/web/image/res.partner/${colData.id}/image`;
-                    }
+
+                if (colData.image) {
+                    imageUrl = `data:image/png;base64,${colData.image}`;
+                } else if (colData.has_image && colData.image_field) {
+                    imageUrl = `/web/image/res.partner/${colData.id}/${colData.image_field}`;
+                } else if (colData.has_image) {
+                    imageUrl = `/web/image/res.partner/${colData.id}/image`;
                 }
 
                 rowContent += `

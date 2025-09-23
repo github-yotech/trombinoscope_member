@@ -46,6 +46,7 @@ class TrombinoscopeList(models.Model):
                 "name": x.name,
                 "has_image": bool(image_field),
                 "image_field": image_field,
+                "image": getattr(x, 'image_256', None) or self.member_placeholder_image,
                 "title": x.title.name or '',
                 "company": x.company_id.name or '',
                 "favorite_quote": x.favorite_quote or '',
@@ -86,6 +87,7 @@ class TrombinoscopeList(models.Model):
                                (getattr(partner, 'image_256', None) and 'image_256') or
                                (getattr(partner, 'image_128', None) and 'image_128') or
                                (getattr(partner, 'image', None) and 'image') or None,
+                "image": getattr(partner, 'image_256', None) or self.member_placeholder_image,
                 "title": partner.title.name if partner.title else '',
                 "company": partner.company_id.name if partner.company_id else '',
                 "favorite_quote": partner.favorite_quote or '',
