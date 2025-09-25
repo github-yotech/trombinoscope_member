@@ -8,6 +8,7 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
     events: {
         'input .trombinoscope-search': '_onSearchInput',
         'click .trombinoscope-filter-option': '_onFilterChange',
+        'click .trombinoscope-tag-option': '_onTagChange',
     },
 
     init: function () {
@@ -17,6 +18,8 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         this.allMembers = [];
         this.dataCache = new Map();
         this.currentFilter = 'all';
+        this.currentTag = 'all';
+        this.allTags = new Set();
     },
 
     start() {
@@ -88,12 +91,13 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
                 let imageUrl = '/yo_trombinoscope_member/static/src/img/placeholder-150.png';
 
                 if (colData.image) {
-                    // Use base64 image data (either partner image or placeholder)
                     imageUrl = `data:image/png;base64,${colData.image}`;
                 }
 
+                const memberTags = colData.tags ? colData.tags.map(tag => tag.toLowerCase()).join(',') : '';
+
                 rowContent += `
-                    <div class="col-${colNum} trombinoscope-card m-1" data-member-name="${colData.name.toLowerCase()}" data-member-company="${colData.company.toLowerCase()}">
+                    <div class="col-${colNum} trombinoscope-card m-1" data-member-name="${colData.name.toLowerCase()}" data-member-company="${colData.company.toLowerCase()}" data-member-tags="${memberTags}">
                         <a ${colData.website_published ? "href=\"/partners/" + colData.id + "\"" : ""}>
                             <figure class="figure">
                                 <img data-src="${imageUrl}" class="figure-img img-fluid rounded trombinoscope-img lazy-load" alt="img ${colData.name}" loading="lazy" src="data:image/svg+xml,%3csvg%20width='100'%20height='100'%20xmlns='http://www.w3.org/2000/svg'%3e%3crect%20width='100'%20height='100'%20fill='%23f0f0f0'/%3e%3c/svg%3e"/>
@@ -127,14 +131,16 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
     _onSearchInput: function (event) {
         const searchTerm = event.target.value.toLowerCase().trim();
 
-        if (searchTerm === '') {
-            this.renderImgGrid(this.allMembers || []);
-            return;
-        }
-
         const filtered = (this.allMembers || []).filter(item => {
             const name = (item.name || '').toLowerCase();
             const company = (item.company || '').toLowerCase();
+            const tags = item.tags ? item.tags.map(tag => tag.toLowerCase()) : [];
+
+            let passesTagFilter = this.currentTag === 'all' || tags.includes(this.currentTag.toLowerCase());
+
+            if (!passesTagFilter) return false;
+
+            if (searchTerm === '') return true;
 
             switch(this.currentFilter) {
                 case 'contact':
@@ -165,6 +171,53 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         if (searchInput) {
             this._onSearchInput({ target: searchInput });
         }
+    },
+
+    _onTagChange: function (event) {
+        event.preventDefault();
+        const $target = $(event.currentTarget);
+        const newTag = $target.data('tag');
+        const newLabel = $target.text();
+
+        this.currentTag = newTag;
+
+        const $button = this.$target.find('.trombinoscope-tag-btn');
+        $button.html(`<i class="fa fa-tags me-2"></i>${newLabel}`).attr('data-tag', newTag);
+
+        const $searchInput = this.$target.find('.trombinoscope-search');
+        if (newTag !== 'all') {
+            $searchInput.val('');
+        }
+
+        const searchInput = $searchInput[0];
+        if (searchInput) {
+            this._onSearchInput({ target: searchInput });
+        }
+    },
+
+    _populateTagDropdown: function() {
+        this.allTags.clear();
+
+        (this.allMembers || []).forEach(member => {
+            if (member.tags && Array.isArray(member.tags)) {
+                member.tags.forEach(tag => {
+                    if (tag && tag.trim()) {
+                        this.allTags.add(tag.trim());
+                    }
+                });
+            }
+        });
+
+        const $dropdown = this.$target.find('.trombinoscope-tag-dropdown');
+        let dropdownHtml = '<li><a class="dropdown-item trombinoscope-tag-option" href="#" data-tag="all">All Tags</a></li>';
+
+        const sortedTags = Array.from(this.allTags).sort();
+
+        sortedTags.forEach(tag => {
+            dropdownHtml += `<li><a class="dropdown-item trombinoscope-tag-option" href="#" data-tag="${tag}">${tag}</a></li>`;
+        });
+
+        $dropdown.html(dropdownHtml);
     },
 
     _reorganizeGrid: function () {
@@ -242,6 +295,7 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
 
         let data = await this._fetch();
         this.allMembers = data;
+        this._populateTagDropdown();
         this.renderImgGrid(data);
     },
 

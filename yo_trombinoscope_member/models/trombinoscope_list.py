@@ -54,6 +54,7 @@ class TrombinoscopeList(models.Model):
                 "favorite_quote": partner.favorite_quote or '',
                 "description": partner.description or '',
                 "website_published": partner.website_published or False,
+                "tags": [tag.name for tag in partner.category_id] if partner.category_id else [],
             })
 
         res = sorted(res, key=lambda member_data: (member_data.get('company', '').lower(), member_data.get('name', '').lower()))
