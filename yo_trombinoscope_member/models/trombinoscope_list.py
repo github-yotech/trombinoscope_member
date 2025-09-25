@@ -43,7 +43,7 @@ class TrombinoscopeList(models.Model):
 
         res = []
         for partner in partners:
-            partner_image = getattr(partner, 'image_256', None) or self.member_placeholder_image
+            partner_image = partner.image_256 or self.member_placeholder_image
 
             res.append({
                 "id": partner.id,
@@ -53,7 +53,7 @@ class TrombinoscopeList(models.Model):
                 "company": partner.parent_id.name if partner.parent_id else '',
                 "favorite_quote": partner.favorite_quote or '',
                 "description": partner.description or '',
-                "website_published": getattr(partner, 'website_published', False),
+                "website_published": partner.website_published or False,
             })
 
         res = sorted(res, key=lambda member_data: (member_data.get('company', '').lower(), member_data.get('name', '').lower()))
