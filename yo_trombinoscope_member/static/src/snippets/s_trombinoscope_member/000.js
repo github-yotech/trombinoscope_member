@@ -7,6 +7,7 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
     selector: '.trombinoscope-member',
     events: {
         'input .trombinoscope-search': '_onSearchInput',
+        'click .trombinoscope-filter-option': '_onFilterChange',
     },
 
     init: function () {
@@ -15,6 +16,7 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         this.rpc = this.bindService("rpc");
         this.allMembers = [];
         this.dataCache = new Map();
+        this.currentFilter = 'all';
     },
 
     start() {
@@ -133,10 +135,36 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         const filtered = (this.allMembers || []).filter(item => {
             const name = (item.name || '').toLowerCase();
             const company = (item.company || '').toLowerCase();
-            return name.includes(searchTerm) || company.includes(searchTerm);
+
+            switch(this.currentFilter) {
+                case 'contact':
+                    return name.includes(searchTerm);
+                case 'company':
+                    return company.includes(searchTerm);
+                case 'all':
+                default:
+                    return name.includes(searchTerm) || company.includes(searchTerm);
+            }
         });
 
         this.renderImgGrid(filtered);
+    },
+
+    _onFilterChange: function (event) {
+        event.preventDefault();
+        const $target = $(event.currentTarget);
+        const newFilter = $target.data('filter');
+        const newLabel = $target.text();
+
+        this.currentFilter = newFilter;
+
+        const $button = this.$target.find('.trombinoscope-filter-btn');
+        $button.text(newLabel).attr('data-filter', newFilter);
+
+        const searchInput = this.$target.find('.trombinoscope-search')[0];
+        if (searchInput) {
+            this._onSearchInput({ target: searchInput });
+        }
     },
 
     _reorganizeGrid: function () {

@@ -5,12 +5,22 @@
         <section class="trombinoscope-member s_features_grid" data-trombinoscope-row="3" data-trombinoscope-col="3" data-trombinoscope="">
             <div class="container">
                 <div class="row mb-3">
-                    <div class="col-md-6 offset-md-3">
+                    <div class="col-md-8 offset-md-2">
                         <div class="input-group">
                             <span class="input-group-text">
                                 <i class="fa fa-search"></i>
                             </span>
                             <input type="text" class="form-control trombinoscope-search" placeholder="Search for a member..." aria-label="Search for a member"/>
+                            <div class="dropdown">
+                                <button class="btn btn-outline-secondary dropdown-toggle trombinoscope-filter-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-filter="all">
+                                    All
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item trombinoscope-filter-option" href="#" data-filter="all">All</a></li>
+                                    <li><a class="dropdown-item trombinoscope-filter-option" href="#" data-filter="contact">Contact Names</a></li>
+                                    <li><a class="dropdown-item trombinoscope-filter-option" href="#" data-filter="company">Company Names</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

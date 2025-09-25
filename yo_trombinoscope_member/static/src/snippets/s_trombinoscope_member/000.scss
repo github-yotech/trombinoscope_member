@@ -13,7 +13,7 @@
 .trombinoscope-member .input-group {
     .input-group-text {
         background-color: #f8f9fa;
-        border-radius: 25px 0 0 25px;
+        border-radius: 25px 0 0 0;
         border-right: none;
 
         .fa-search {
@@ -22,7 +22,32 @@
     }
     .form-control {
         border-left: none;
+        border-right: none;
+    }
+
+    .trombinoscope-filter-btn {
         border-radius: 0 25px 25px 0;
+        border-left: none;
+        white-space: nowrap;
+        min-width: 120px;
+
+        &:hover, &:focus {
+            background-color: #e9ecef;
+        }
+    }
+
+    .dropdown-menu {
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border: 1px solid #dee2e6;
+
+        .dropdown-item {
+            padding: 8px 16px;
+
+            &:hover {
+                background-color: #f8f9fa;
+            }
+        }
     }
 }
 

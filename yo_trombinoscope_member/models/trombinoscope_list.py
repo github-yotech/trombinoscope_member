@@ -50,7 +50,7 @@ class TrombinoscopeList(models.Model):
                 "name": partner.name,
                 "image": partner_image,
                 "title": partner.title.name if partner.title else '',
-                "company": partner.company_id.name if partner.company_id else '',
+                "company": partner.parent_id.name if partner.parent_id else '',
                 "favorite_quote": partner.favorite_quote or '',
                 "description": partner.description or '',
                 "website_published": getattr(partner, 'website_published', False),
