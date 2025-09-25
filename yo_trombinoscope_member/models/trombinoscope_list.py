@@ -20,10 +20,9 @@ class TrombinoscopeList(models.Model):
     def _default_member_placeholder_image(self):
         return b64encode(file_open(self._get_default_member_placeholder_image_path(), 'rb').read())
 
-    def get_members(self):
+    def get_members(self, limit=None):
+        """Get members of the trombinoscope with optimized queries"""
         self.ensure_one()
-        members = self.member_ids.search([('trombinoscope_id', '=', self.id)])
-        members = members.filtered(lambda x: x.is_active is True)
         # these are for sneaking-in these strings into the po file
         # without them, these words wouldn't be registered
         _("name")
@@ -32,17 +31,34 @@ class TrombinoscopeList(models.Model):
         _("company")
         _("favorite_quote")
         _("description")
-        res = members.partner_id.mapped(lambda x: {
-            "id": x.id,
-            "name": x.name,
-            "image": x.image_256 or self.member_placeholder_image,
-            "title": x.title.name or '',
-            "company": x.company_id.name or '',
-            "favorite_quote": x.favorite_quote or '',
-            "description": x.description or '',
-            "website_published": x.website_published,
-            # _("activity"): ''
-        })
+
+        domain = [('trombinoscope_id', '=', self.id)]
+        members = self.env['trombinoscope.list.member'].search(domain)
+        members = members.filtered(lambda x: x.is_active)
+
+        if limit:
+            members = members[:limit]
+
+        partners = members.mapped('partner_id')
+
+        res = []
+        for partner in partners:
+            partner_image = partner.image_256 or self.member_placeholder_image
+
+            res.append({
+                "id": partner.id,
+                "name": partner.name,
+                "image": partner_image,
+                "title": partner.title.name if partner.title else '',
+                "company": partner.parent_id.name if partner.parent_id else '',
+                "favorite_quote": partner.favorite_quote or '',
+                "description": partner.description or '',
+                "website_published": partner.website_published or False,
+                "tags": [tag.name for tag in partner.category_id] if partner.category_id else [],
+            })
+
+        res = sorted(res, key=lambda member_data: (member_data.get('company', '').lower(), member_data.get('name', '').lower()))
+
         return res
 
     @api.model
@@ -57,7 +73,7 @@ class TrombinoscopeListMember(models.Model):
     sequence = fields.Integer("Sequence")
 
     trombinoscope_id = fields.Many2one("trombinoscope.list", string="Trombinoscope", required=True, ondelete='cascade')
-    partner_id = fields.Many2one("res.partner", string="Member Name", required=True, domain="[('image_1024','!=',False)]")
+    partner_id = fields.Many2one("res.partner", string="Member Name", required=True)
     is_active = fields.Boolean("Active", compute="_compute_active")
 
     @api.depends('partner_id', 'partner_id.active')
