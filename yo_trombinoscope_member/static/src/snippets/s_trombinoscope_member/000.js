@@ -86,11 +86,8 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
                 let imageUrl = '/yo_trombinoscope_member/static/src/img/placeholder-150.png';
 
                 if (colData.image) {
+                    // Use base64 image data (either partner image or placeholder)
                     imageUrl = `data:image/png;base64,${colData.image}`;
-                } else if (colData.has_image && colData.image_field) {
-                    imageUrl = `/web/image/res.partner/${colData.id}/${colData.image_field}`;
-                } else if (colData.has_image) {
-                    imageUrl = `/web/image/res.partner/${colData.id}/image`;
                 }
 
                 rowContent += `

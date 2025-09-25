@@ -34,7 +34,7 @@ class TrombinoscopeList(models.Model):
 
         domain = [('trombinoscope_id', '=', self.id)]
         members = self.env['trombinoscope.list.member'].search(domain)
-        members = members.filtered(lambda x: x.is_active is True)
+        members = members.filtered(lambda x: x.is_active)
 
         if limit:
             members = members[:limit]
@@ -43,19 +43,17 @@ class TrombinoscopeList(models.Model):
 
         res = []
         for partner in partners:
-            partner_image = partner.get_image_for_display() or self.member_placeholder_image
+            partner_image = getattr(partner, 'image_256', None) or self.member_placeholder_image
 
             res.append({
                 "id": partner.id,
                 "name": partner.name,
-                "has_image": partner.has_image(),
-                "image_field": partner.get_best_image_field(),
                 "image": partner_image,
                 "title": partner.title.name if partner.title else '',
                 "company": partner.company_id.name if partner.company_id else '',
                 "favorite_quote": partner.favorite_quote or '',
                 "description": partner.description or '',
-                "website_published": partner.website_published or False,
+                "website_published": getattr(partner, 'website_published', False),
             })
 
         res = sorted(res, key=lambda member_data: (member_data.get('company', '').lower(), member_data.get('name', '').lower()))
