@@ -18,7 +18,6 @@ Features including:
         "views/trombinoscope_list.xml",
         'views/snippets/s_trombinoscope_member.xml',
         'views/snippets/snippets.xml',
-        'views/res_partner.xml',
         'views/portal.xml',
         "views/website_partner_templates.xml",
     ],
