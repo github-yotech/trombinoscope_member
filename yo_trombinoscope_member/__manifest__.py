@@ -1,6 +1,6 @@
 {
     "name": "Trombinoscope Member",
-    "version": "17.0.1.0.0",
+    "version": "18.0.1.0.0",
     "depends": ["membership", "website_partner"],
     "author": "Yotech",
     "license": "Other proprietary",
@@ -18,7 +18,6 @@ Features including:
         "views/trombinoscope_list.xml",
         'views/snippets/s_trombinoscope_member.xml',
         'views/snippets/snippets.xml',
-        'views/res_partner.xml',
         'views/portal.xml',
         "views/website_partner_templates.xml",
     ],
