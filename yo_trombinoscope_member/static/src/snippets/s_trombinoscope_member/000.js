@@ -9,6 +9,7 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         'input .trombinoscope-search': '_onSearchInput',
         'click .trombinoscope-filter-option': '_onFilterChange',
         'click .trombinoscope-tag-option': '_onTagChange',
+        'change .trombinoscope-sort-checkbox': '_onSortChange',
     },
 
     init: function () {
@@ -20,6 +21,7 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         this.currentFilter = 'all';
         this.currentTag = 'all';
         this.allTags = new Set();
+        this.alphabeticalSort = false;
     },
 
     start() {
@@ -153,6 +155,14 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
             }
         });
 
+        if (this.alphabeticalSort) {
+            filtered.sort((a, b) => {
+                const companyA = (a.company || '').toLowerCase();
+                const companyB = (b.company || '').toLowerCase();
+                return companyA.localeCompare(companyB);
+            });
+        }
+
         this.renderImgGrid(filtered);
     },
 
@@ -190,6 +200,15 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         }
 
         const searchInput = $searchInput[0];
+        if (searchInput) {
+            this._onSearchInput({ target: searchInput });
+        }
+    },
+
+    _onSortChange: function (event) {
+        this.alphabeticalSort = event.target.checked;
+
+        const searchInput = this.$target.find('.trombinoscope-search')[0];
         if (searchInput) {
             this._onSearchInput({ target: searchInput });
         }

@@ -42,7 +42,8 @@ class TrombinoscopeList(models.Model):
         partners = members.mapped('partner_id')
 
         res = []
-        for partner in partners:
+        for member in members:
+            partner = member.partner_id
             partner_image = partner.image_256 or self.member_placeholder_image
 
             res.append({
@@ -56,8 +57,6 @@ class TrombinoscopeList(models.Model):
                 "website_published": partner.website_published or False,
                 "tags": [tag.name for tag in partner.category_id] if partner.category_id else [],
             })
-
-        res = sorted(res, key=lambda member_data: (member_data.get('company', '').lower(), member_data.get('name', '').lower()))
 
         return res
 
