@@ -18,17 +18,30 @@
             <form string="Trombinoscope">
                 <sheet>
                     <group>
-                        <field name="name"/>
-                        <field name="is_active" />
-                        <field name="member_ids">
-                            <list editable="bottom" create="1" delete="1" multi_edit="1">
-                                <field name="sequence" widget="handle" />
-                                <field name="partner_id" domain="[('membership_state', 'in', ['invoiced', 'paid', 'free'])]"/>
-                            </list>
-                        </field>
+                        <group>
+                            <field name="name"/>
+                            <field name="is_active" />
+                        </group>
+                        <group>
+                            <field name="member_placeholder_image" widget="image"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="member_ids"/>
                     </group>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <record id="trombinoscope_list_member_list" model="ir.ui.view">
+        <field name="name">trombinoscope.list.member.list</field>
+        <field name="model">trombinoscope.list.member</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" create="1" delete="1">
+                <field name="sequence" widget="handle"/>
+                <field name="partner_id" domain="[('membership_state', 'in', ['invoiced', 'paid', 'free'])]"/>
+            </list>
         </field>
     </record>
 
@@ -37,7 +50,7 @@
         <field name="res_model">trombinoscope.list</field>
         <field name="view_mode">list,form</field>
     </record>
-    
+
     <menuitem
         id="trombinoscope_list_menu"
         name="Trombinoscope"

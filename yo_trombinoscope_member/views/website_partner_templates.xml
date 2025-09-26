@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="partner_page" inherit_id="website_partner.partner_page">
+        <div class="row" position="before">
+            <h4 class="mb-3">
+                <a onclick="if (history.length > 1) history.back(); else window.location.href = '/';" href="/" aria-label="Back to trombinoscope"><i class="fa fa-chevron-left me-2"/>Back to trombinoscope</a>
+            </h4>
+        </div>
+    </template>
+
+    <template id="partner_detail" inherit_id="website_partner.partner_detail">
+        <t t-if="partner" position="replace">
+            <t t-if="partner">
+                <t t-if="partner.favorite_quote">
+                    <span class="mb-3 fw-bold">Favorite quote</span>
+                    <div t-field="partner.favorite_quote" class="mb-4"/>
+                </t>
+                <t t-if="partner.description">
+                    <span class="mb-3 fw-bold">Description</span>
+                    <div t-field="partner.description" class="mb-4"/>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

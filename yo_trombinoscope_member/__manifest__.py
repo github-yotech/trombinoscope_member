@@ -12,10 +12,14 @@ Features including:
     """,
     "data": [
         "security/ir.model.access.csv",
+
         "data/image_library.xml",
+
         "views/trombinoscope_list.xml",
         'views/snippets/s_trombinoscope_member.xml',
         'views/snippets/snippets.xml',
+        'views/portal.xml',
+        "views/website_partner_templates.xml",
     ],
     "assets": {
         "website.assets_wysiwyg": [
