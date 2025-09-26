@@ -25,7 +25,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="dropdown w-100">
                                     <button class="btn btn-outline-primary dropdown-toggle w-100 trombinoscope-tag-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-tag="all">
                                         <i class="fa fa-tags me-2"></i>All Tags
@@ -33,6 +33,14 @@
                                     <ul class="dropdown-menu trombinoscope-tag-dropdown w-100">
                                         <li><a class="dropdown-item trombinoscope-tag-option" href="#" data-tag="all">All Tags</a></li>
                                     </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-1 d-flex align-items-center justify-content-center">
+                                <div class="form-check">
+                                    <input class="form-check-input trombinoscope-sort-checkbox" type="checkbox" id="alphabeticalSort"/>
+                                    <label class="form-check-label" for="alphabeticalSort" title="Sort alphabetically">
+                                        <i class="fa fa-sort-alpha-asc"></i>
+                                    </label>
                                 </div>
                             </div>
                         </div>

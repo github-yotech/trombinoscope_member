@@ -44,7 +44,7 @@
         <field name="res_model">trombinoscope.list</field>
         <field name="view_mode">tree,form</field>
     </record>
-    
+
     <menuitem
         id="trombinoscope_list_menu"
         name="Trombinoscope"
