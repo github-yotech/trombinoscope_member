@@ -133,7 +133,7 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
     _onSearchInput: function (event) {
         const searchTerm = event.target.value.toLowerCase().trim();
 
-        const filtered = (this.allMembers || []).filter(item => {
+        let filtered = (this.allMembers || []).slice().filter(item => {
             const name = (item.name || '').toLowerCase();
             const company = (item.company || '').toLowerCase();
             const tags = item.tags ? item.tags.map(tag => tag.toLowerCase()) : [];
@@ -315,7 +315,22 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         let data = await this._fetch();
         this.allMembers = data;
         this._populateTagDropdown();
-        this.renderImgGrid(data);
+
+        if (data.length > 0 && data[0].alphabetical_sort_default !== undefined) {
+            this.alphabeticalSort = data[0].alphabetical_sort_default;
+            const $checkbox = this.$target.find('.trombinoscope-sort-checkbox');
+            $checkbox.prop('checked', this.alphabeticalSort);
+        }
+
+        let displayData = data.slice();
+        if (this.alphabeticalSort) {
+            displayData.sort((a, b) => {
+                const companyA = (a.company || '').toLowerCase();
+                const companyB = (b.company || '').toLowerCase();
+                return companyA.localeCompare(companyB);
+            });
+        }
+        this.renderImgGrid(displayData);
     },
 
     destroy() {

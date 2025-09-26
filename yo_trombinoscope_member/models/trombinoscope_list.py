@@ -15,6 +15,11 @@ class TrombinoscopeList(models.Model):
         max_height=256,
         default=lambda self: self._default_member_placeholder_image(),
     )
+    alphabetical_sort_default = fields.Boolean(
+        string="Sort alphabetically by default",
+        default=False,
+        help="When enabled, the trombinoscope will be sorted alphabetically by company name by default"
+    )
 
     @api.model
     def _default_member_placeholder_image(self):
@@ -56,6 +61,7 @@ class TrombinoscopeList(models.Model):
                 "description": partner.description or '',
                 "website_published": partner.website_published or False,
                 "tags": [tag.name for tag in partner.category_id] if partner.category_id else [],
+                "alphabetical_sort_default": self.alphabetical_sort_default,
             })
 
         return res
