@@ -300,7 +300,6 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
         setTimeout(() => {
             this.dataCache.delete(cacheKey);
         }, 300000);
-
         return responses;
     },
     async loadImage(previewMode) {

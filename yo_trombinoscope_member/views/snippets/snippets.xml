@@ -3,6 +3,11 @@
     <template id="external_snippets" inherit_id="website.snippets">
         <xpath expr="//t[@id='installed_snippets_hook']" position="after">
             <t t-snippet="yo_trombinoscope_member.s_trombinoscope_member" string="Trombinoscope Member" t-thumbnail="/yo_trombinoscope_member/static/src/img/snippets/s_images_wall.svg"/>
+        </xpath> -->
+        <xpath expr="//snippets[@id='snippet_content']" position="inside">
+            <t t-snippet="yo_trombinoscope_member.s_trombinoscope_member" 
+                string="Trombinoscope Member" 
+                t-thumbnail="/yo_trombinoscope_member/static/src/img/snippets/s_images_wall.svg"/>
         </xpath>
     </template>
 </odoo>

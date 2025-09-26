@@ -1,7 +1,7 @@
 {
     "name": "Trombinoscope Member",
     "version": "18.0.1.0.0",
-    "depends": ["membership", "website_partner"],
+    "depends": ["web_editor", "membership", "website"],
     "author": "Yotech",
     "license": "Other proprietary",
     "category": "theme",
@@ -22,12 +22,12 @@ Features including:
         "views/website_partner_templates.xml",
     ],
     "assets": {
+        "website.assets_wysiwyg": [
+            "yo_trombinoscope_member/static/src/snippets/s_trombinoscope_member/options.js",
+        ],
         "web.assets_frontend": [
             "yo_trombinoscope_member/static/src/snippets/s_trombinoscope_member/000.js",
             "yo_trombinoscope_member/static/src/snippets/s_trombinoscope_member/000.scss",
-        ],
-        "website.assets_wysiwyg": [
-            "yo_trombinoscope_member/static/src/snippets/s_trombinoscope_member/options.js",
         ],
     },
 }
