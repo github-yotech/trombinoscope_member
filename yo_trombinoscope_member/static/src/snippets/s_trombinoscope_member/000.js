@@ -2,6 +2,7 @@
 
 import publicWidget from "@web/legacy/js/public/public_widget";
 import { _t } from "@web/core/l10n/translation";
+import { rpc } from "@web/core/network/rpc";
 
 const TrombinoscopeMember = publicWidget.Widget.extend({
     selector: '.trombinoscope-member',
@@ -15,7 +16,6 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
     init: function () {
         console.debug("Load Trombinoscope")
         this._super.apply(this, arguments);
-        this.rpc = this.bindService("rpc");
         this.allMembers = [];
         this.dataCache = new Map();
         this.currentFilter = 'all';
@@ -291,7 +291,7 @@ const TrombinoscopeMember = publicWidget.Widget.extend({
             return this.dataCache.get(cacheKey);
         }
 
-        const responses = await this.rpc('/trombinoscope/list/member', {
+        const responses = await rpc('/trombinoscope/list/member', {
             'trombinoscope': tromb,
             'limit': optimalLimit
         });
